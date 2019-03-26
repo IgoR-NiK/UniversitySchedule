@@ -1,8 +1,25 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Расписание занятий ЮРГПУ (НПИ)</title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <div id="app">
+        <h2> {{ message }} </h2>
+    </div>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/http-vue-loader"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+
+    <script>   
+        new Vue({
+            el: "#app",
+            data: {
+                message: 'Расписание занятий ЮРГПУ (НПИ)'
+            }            
+        });
+    </script>
+</body>
+</html>
