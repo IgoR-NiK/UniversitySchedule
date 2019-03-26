@@ -1,0 +1,9 @@
+﻿@font-face {
+    font-family: 'Bad Script';
+    src: url('../fonts/badscript-regular.woff');
+}
+
+.slogan {   
+    font: 300% 'Bad Script', cursive, arial;
+    color: #111
+}
