@@ -47,7 +47,7 @@ namespace UniversitySchedule
                 app.UseExceptionHandler("/Home/Error");
             }
 
-            app.UseStatusCodePagesWithReExecute("/Home");
+            app.UseStatusCodePagesWithReExecute("/Home/Index");
 
             var provider = new FileExtensionContentTypeProvider();
             provider.Mappings[".vue"] = "text/html";

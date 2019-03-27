@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
 
     <link rel="stylesheet" type="text/css" href="~/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz" />
 
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://unpkg.com/http-vue-loader"></script>
@@ -12,15 +13,35 @@
 </head>
 <body>
     <div id="app">
-        <span class="slogan"> {{ message }} </span>
+        <common-title></common-title>
+        <common-menu></common-menu>
+        <div id="site_content">
+            <router-view></router-view>
+        </div>    
+        <common-footer></common-footer>
     </div>   
 
     <script>   
         new Vue({
             el: "#app",
             data: {
-                message: 'Веб-приложение "Расписание занятий ЮРГПУ (НПИ)"'
-            }            
+                
+            },
+            components: {
+                'common-title': httpVueLoader('/js/components/common/common-title.vue'),
+                'common-menu': httpVueLoader('/js/components/common/common-menu.vue'),
+                'common-footer': httpVueLoader('/js/components/common/common-footer.vue')
+            },
+            router: new VueRouter({
+                mode: 'history',
+                routes: [
+                    { path: '/', redirect: '/index' },
+                    { path: '/index', component: httpVueLoader('/js/components/main/main-component.vue') },
+                    { path: '/studentShedule', component: httpVueLoader('/js/components/students/students-component.vue') },
+                    { path: '/teacherShedule', component: httpVueLoader('/js/components/teachers/teachers-component.vue') },
+                    { path: '*', redirect: '/index' }
+                ]
+            })
         });
     </script>
 </body>
