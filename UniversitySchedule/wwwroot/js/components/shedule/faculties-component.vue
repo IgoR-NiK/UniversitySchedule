@@ -1,6 +1,6 @@
 ﻿<template>
 	<div>
-		<h1-title>Расписание преподавателей</h1-title>
+		<h1-title>Выберите факультет</h1-title>
 	</div>
 </template>
 
@@ -13,5 +13,5 @@
 </script>
 
 <style scoped>
-  
+   
 </style>

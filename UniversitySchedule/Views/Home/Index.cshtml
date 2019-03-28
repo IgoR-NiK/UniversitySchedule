@@ -1,48 +1,47 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <title>Расписание занятий ЮРГПУ (НПИ)</title>
-    <meta charset="utf-8" />
+	<title>Расписание занятий ЮРГПУ (НПИ)</title>
+	<meta charset="utf-8" />
 
-    <link rel="stylesheet" type="text/css" href="~/css/style.css" />
-    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz" />
+	<link rel="stylesheet" type="text/css" href="~/css/style.css" />
+	<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz" />
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
 
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="https://unpkg.com/http-vue-loader"></script>
-    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script src="https://unpkg.com/http-vue-loader"></script>
+	<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
 </head>
 <body>
-    <div id="app">
-        <common-title></common-title>
-        <common-menu></common-menu>
-        <div id="site_content">
-            <router-view></router-view>
-        </div>    
-        <common-footer></common-footer>
-    </div>   
+	<div id="app">
+		<common-title></common-title>
+		<common-menu></common-menu>
+		<common-content></common-content>
+		<common-footer></common-footer>
+	</div>
 
-    <script>   
-        new Vue({
-            el: "#app",
-            data: {
-                
-            },
-            components: {
-                'common-title': httpVueLoader('/js/components/common/common-title.vue'),
-                'common-menu': httpVueLoader('/js/components/common/common-menu.vue'),
-                'common-footer': httpVueLoader('/js/components/common/common-footer.vue')
-            },
-            router: new VueRouter({
-                mode: 'history',
-                routes: [
-                    { path: '/', redirect: '/index' },
-                    { path: '/index', component: httpVueLoader('/js/components/main/main-component.vue') },
-                    { path: '/studentShedule', component: httpVueLoader('/js/components/students/students-component.vue') },
-                    { path: '/teacherShedule', component: httpVueLoader('/js/components/teachers/teachers-component.vue') },
-                    { path: '*', redirect: '/index' }
-                ]
-            })
-        });
-    </script>
+	<script>
+		new Vue({
+			el: "#app",
+			components: {
+				'common-title': httpVueLoader('/js/components/common/common-title.vue'),
+				'common-menu': httpVueLoader('/js/components/common/common-menu.vue'),
+				'common-content': httpVueLoader('/js/components/common/common-content.vue'),
+				'common-footer': httpVueLoader('/js/components/common/common-footer.vue')
+			},
+			router: new VueRouter({
+				mode: 'history',
+				routes: [
+					{ path: '/', redirect: '/index' },
+					{ path: '/index', component: httpVueLoader('/js/components/main/main-component.vue') },
+					{ path: '/faculties', component: httpVueLoader('/js/components/shedule/faculties-component.vue') },
+					{ path: '/teachers', component: httpVueLoader('/js/components/teachers/teachers-component.vue') },
+					{ path: '/administration', component: httpVueLoader('/js/components/administration/administration-component.vue') },
+					{ path: '/login', component: httpVueLoader('/js/components/login/login-component.vue') },
+					{ path: '*', redirect: '/index' }
+				]
+			})
+		});
+	</script>
 </body>
 </html>

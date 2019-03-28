@@ -1,5 +1,5 @@
 ﻿<template>
-    <div id="footer">
+    <div class="footer">
         <p>Copyright &copy; 2019 ЮРГПУ (НПИ) Расписание занятий</p>
     </div>
 </template>
@@ -9,7 +9,7 @@
 </script>
 
 <style scoped>
-    #footer {        
+    .footer {        
         width: 100%;
         font: normal 135% 'yanone kaffeesatz', arial, sans-serif;
         height: 35px;

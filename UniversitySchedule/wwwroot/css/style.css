@@ -1,66 +1,8 @@
 ﻿body {
-    background-color: #fcfbfb;    
+    background-color: #fcfbfb;
 }
 
 #app {
     width: 1200px;
     margin: 20px auto;
 }
-
-#site_content {
-    width: 100%;
-    overflow: hidden;
-    background: #fff;
-    border: 1px solid #E7E7E7;
-    border-top: 0;
-    box-shadow: 10px 5px 20px 3px #ddd, -10px 5px 20px 3px #ddd;
-}
-
-
-
-h1, h2, h3, h4, h5, h6 {
-    font: normal 250% 'Yanone Kaffeesatz', arial, sans-serif;
-    color: #444;
-    margin: 0 0 15px 0;
-    padding: 5px 0 5px 0;
-}
-
-h2 {
-    font: normal 170% 'Yanone Kaffeesatz', arial, sans-serif;
-    color: #F14E23;
-    margin: 0;
-    padding: 0 0 8px 0;
-}
-
-h3 {
-    font-size: 200%;
-    margin: 0 0 9px 0;
-}
-
-h4, h5, h6 {
-    margin: 0;
-    padding: 0 0 5px 0;
-    font: normal 100% arial, sans-serif;
-    color: #F14E23;
-    line-height: 1em;
-}
-
-h5, h6 {
-    font: italic 95% arial, sans-serif;
-    color: #888;
-    padding-bottom: 15px;
-}
-
-h6 {
-    color: #362C20;
-}
-
-#content {
-    text-align: left;
-    padding: 20px;
-    font: normal .80em 'trebuchet ms', arial, sans-serif;
-}    
-
-    #content h1 {
-        border-bottom: 2px solid #f6f6f6;
-    }

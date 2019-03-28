@@ -1,6 +1,9 @@
 ﻿<template>
 	<div>
-		<h1-title>Расписание преподавателей</h1-title>
+		<h1-title>Выполнить вход</h1-title>
+		<div class="">
+
+		</div>
 	</div>
 </template>
 
@@ -13,5 +16,5 @@
 </script>
 
 <style scoped>
-  
+	
 </style>
