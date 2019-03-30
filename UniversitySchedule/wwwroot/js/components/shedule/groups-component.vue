@@ -1,30 +1,45 @@
 ﻿<template>
 	<div>
-		<h1-title>Администрирование</h1-title>
+		<h1-title>Выберите группу</h1-title>
 
 		<span>Навигация ::</span>
-		<span>Администрирование</span>
+		<span><router-link v-bind:to="{ path: `/faculties` }"> {{ facultyName }} </router-link></span>
+		<span> ➞ </span>
+		<span><router-link v-bind:to="{ path: `/faculties/${facultyId}/courses` }"> {{ courseId }} курс </router-link></span>
+		<span> ➞ </span>
+		<span>Группы</span>
 
 		<div class="list">
-			<router-link v-for="item in items" v-bind:to="{ path: `${item.path}` }" class="list-item"> 
-				<h4> {{ item.name }} </h4>
+			<router-link v-for="group in groups" v-bind:to="{ path: `/faculties/${facultyId}/courses/${courseId}/groups/${group.id}/shedule` }" class="list-item">
+				<h4> {{ group.name }} </h4>
 			</router-link>
 		</div>
-	</div>	
+	</div>
 </template>
 
 <script>
 	module.exports = {
 		data: function () {
 			return {
-				items: [
+				facultyId: this.$route.params.facultyId,
+				facultyName: 'ФИТУ',
+				courseId: this.$route.params.courseId,
+				groups: [
 					{
-						name: 'Редактирование факультетов',
-						path: '/administration/faculties'
+						id: 1,
+						name: 'ФИТУ 3-5Б'
 					},
 					{
-						name: 'Редактирование кафедр',
-						path: '/administration/chairs'
+						id: 2,
+						name: 'ФИТУ 3-5'
+					},
+					{
+						id: 3,
+						name: 'ФИТУ 3-4А'
+					},
+					{
+						id: 4,
+						name: 'ФИТУ 3-4Б'
 					}
 				]
 			}

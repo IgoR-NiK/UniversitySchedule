@@ -34,9 +34,18 @@
 				routes: [
 					{ path: '/', redirect: '/index' },
 					{ path: '/index', component: httpVueLoader('/js/components/main/main-component.vue') },
+
 					{ path: '/faculties', component: httpVueLoader('/js/components/shedule/faculties-component.vue') },
+					{ path: '/faculties/:facultyId/courses', component: httpVueLoader('/js/components/shedule/courses-component.vue') },
+					{ path: '/faculties/:facultyId/courses/:courseId/groups', component: httpVueLoader('/js/components/shedule/groups-component.vue') },
+					{ path: '/faculties/:facultyId/courses/:courseId/groups/:groupId/shedule', component: httpVueLoader('/js/components/shedule/shedule-component.vue') },
+
 					{ path: '/teachers', component: httpVueLoader('/js/components/teachers/teachers-component.vue') },
+
 					{ path: '/administration', component: httpVueLoader('/js/components/administration/administration-component.vue') },
+					{ path: '/administration/faculties', component: httpVueLoader('/js/components/administration/edit-faculties-component.vue') },
+					{ path: '/administration/chairs', component: httpVueLoader('/js/components/administration/edit-chairs-component.vue') },					
+
 					{ path: '/login', component: httpVueLoader('/js/components/login/login-component.vue') },
 					{ path: '*', redirect: '/index' }
 				]

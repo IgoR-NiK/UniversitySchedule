@@ -1,14 +1,15 @@
 ﻿<template>
 	<div>
-		<h1-title>Выберите факультет</h1-title>
+		<h1-title>Выберите курс</h1-title>
 
-		<span>Навигация ::</span> 
-		<span>Факультеты</span>
+		<span>Навигация ::</span>
+		<span><router-link v-bind:to="{ path: `/faculties` }"> {{ facultyName }} </router-link></span>
+		<span> ➞ </span>
+		<span>Курсы</span>
 
 		<div class="list">
-			<router-link v-for="faculty in faculties" v-bind:to="{ path: `/faculties/${faculty.id}/courses` }" class="list-item">
-				<h4> {{ faculty.shortName }} </h4>
-				<p> {{ faculty.name }}</p>
+			<router-link v-for="course in courses" v-bind:to="{ path: `/faculties/${facultyId}/courses/${course.id}/groups` }" class="list-item">
+				<h4> {{ course.name }} </h4>
 			</router-link>
 		</div>
 	</div>
@@ -18,26 +19,24 @@
 	module.exports = {
 		data: function () {
 			return {
-				faculties: [
+				facultyId: this.$route.params.facultyId,
+				facultyName: 'ФИТУ',
+				courses: [
 					{
 						id: 1,
-						shortName: 'ФИТУ',
-						name: 'Факультет информационных технологий и управления'
+						name: '1 курс'
 					},
 					{
 						id: 2,
-						shortName: 'СФ',
-						name: 'Строительный факультет'
+						name: '2 курс'
 					},
 					{
 						id: 3,
-						shortName: 'МФ',
-						name: 'Механический факультет'
+						name: '3 курс'
 					},
 					{
 						id: 4,
-						shortName: 'ЭНФ',
-						name: 'Энергетический факультет'
+						name: '4 курс'
 					}
 				]
 			}
@@ -57,13 +56,7 @@
 		font-size: 19px;
 		font-weight: 400;
 		color: #222;
-		margin: 0 0 10px 0;
-	}
-
-	p {
-		color: #444;
-		margin: 0 0 5px 0;
-		font-size: 15px; 
+		margin: 5px 0 5px 0;
 	}
 
 	a {
@@ -85,10 +78,6 @@
 
 			a.list-item:hover h4 {
 				font-size: 21px;
-			}
-
-			a.list-item:hover p {
-				font-size: 16px;
 			}
 
 	.list a.list-item:first-child {
