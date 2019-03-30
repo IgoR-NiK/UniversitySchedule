@@ -42,7 +42,7 @@
 		}
 
 			ul li a {
-				font: normal 135% 'Yanone Kaffeesatz', arial, sans-serif;
+				font: normal 22px 'Yanone Kaffeesatz', arial, sans-serif;
 				padding: 7px 23px 15px 23px;
 				text-decoration: none;
 				color: #444;
@@ -50,6 +50,7 @@
 				float: left;
 				height: 20px;
 				text-align: center;
+				box-sizing: unset;
 			}
 
 				ul li a.router-link-active {

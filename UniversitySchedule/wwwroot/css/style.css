@@ -1,8 +1,60 @@
-﻿body {
-    background-color: #fcfbfb;
+﻿html {
+	overflow-y: auto;
+	font-family: 'YS Text','Helvetica Neue',Arial,sans-serif;
+	font-size: 16px;
+}
+
+body {
+	background-color: #fcfbfb;
 }
 
 #app {
-    width: 1200px;
-    margin: 20px auto;
+	width: 90%;
+	min-width: 900px;
+	max-width: 1200px;
+	margin: 20px auto;
 }
+
+*:focus {
+	outline: none;
+}
+
+button {
+	width: auto;
+	cursor: pointer;
+	color: #35BDF5;
+	border: 1px solid #ccc;
+	padding: 5px 20px;
+	margin: 5px;
+	background: #fff;
+	font: normal 150% 'Yanone Kaffeesatz', sans-serif;
+	border-radius: 5px;
+	outline: none;
+}
+
+	button:hover {
+		background: #FCF8F8;
+	}
+
+	button:active {
+		padding-top: 6px;
+		padding-bottom: 4px;
+		box-shadow: 5px 2px 10px 3px #eee, -5px 2px 10px 3px #eee;
+	}
+
+
+input {
+	height: 25px;
+	width: 280px;
+	padding: 5px 8px;
+	border: 1px solid #aaa;
+	font-size: 14px;
+	box-shadow: 0px 0px 3px #ccc, 0 5px 15px #eee inset;
+	border-radius: 2px;
+}
+
+	input:focus {
+		background: #fff;
+		border: 1px solid #555;
+		box-shadow: 0 0 3px #aaa;
+	}

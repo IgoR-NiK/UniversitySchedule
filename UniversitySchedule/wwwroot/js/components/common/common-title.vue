@@ -16,7 +16,7 @@
     }
 
     .slogan {
-        font: 240% 'Bad Script', cursive, arial;
+        font: 38px 'Bad Script', cursive, arial;
         color: #111
     }
 </style>

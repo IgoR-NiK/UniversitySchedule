@@ -11,7 +11,7 @@
 <style scoped>
     .footer {        
         width: 100%;
-        font: normal 135% 'yanone kaffeesatz', arial, sans-serif;
+        font: normal 22px 'yanone kaffeesatz', arial, sans-serif;
         height: 35px;
         margin-top: 20px;
         text-align: center;

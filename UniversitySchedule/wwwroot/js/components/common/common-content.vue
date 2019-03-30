@@ -15,8 +15,7 @@
 		background: #fff;
 		border: 1px solid #E7E7E7;
 		border-top: 0;
-		box-shadow: 10px 5px 20px 3px #ddd, -10px 5px 20px 3px #ddd;
-		font: normal .80em 'trebuchet ms', arial, sans-serif;
+		box-shadow: 10px 5px 20px 3px #ddd, -10px 5px 20px 3px #ddd;		
 		padding: 20px;
 		box-sizing: border-box;
 	}
