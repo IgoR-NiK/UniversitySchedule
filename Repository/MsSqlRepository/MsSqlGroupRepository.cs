@@ -28,7 +28,17 @@ namespace Repository.MsSqlRepository
 
 		public Task<Group> GetEntityAsync(int id)
 		{
-			throw new NotImplementedException();
+			return Task.Run(() =>
+			{
+				Group group;
+
+				using (var dbContext = GetDbContext())
+				{
+					group = dbContext.Groups.FirstOrDefault(x => x.Id == id);
+				}
+
+				return group;
+			});
 		}
 
 		public Task<List<Group>> GetEntityListAsync()
@@ -45,8 +55,9 @@ namespace Repository.MsSqlRepository
 				using (var dbContext = GetDbContext())
 				{
 					groups = dbContext.Groups
-								.Include(g => g.Department)
-								.Where(g => g.Department.FacultyId == facultyId && g.CoursesNumber == courseNumber)
+								.Include(x => x.Department)
+								.Where(x => x.Department.FacultyId == facultyId && x.CoursesNumber == courseNumber)
+								.OrderBy(x => x.Name)
 								.ToList();
 				}
 

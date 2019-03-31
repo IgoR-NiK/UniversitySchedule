@@ -21,13 +21,24 @@ namespace UniversitySchedule.Controllers
 		{
 			GroupRepository = groupRepository;
 		}
-			   		
+
 
 		[HttpGet]
 		public async Task<IEnumerable<Group>> Get(int facultyId, int courseNumber)
 		{
 			var groups = await GroupRepository.GetGroupsForFacultyAndCourseAsync(facultyId, courseNumber);
 			return groups.Select(x => GroupConverter.Convert(x));
-		}	
-    }
+		}
+
+		[HttpGet("{id}")]
+		public async Task<IActionResult> Get(int id)
+		{
+			var group = await GroupRepository.GetEntityAsync(id);
+
+			if (group == null)
+				return NotFound();
+
+			return new OkObjectResult(GroupConverter.Convert(group));
+		}
+	}
 }

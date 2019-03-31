@@ -18,14 +18,23 @@
 		data: function () {
 			return {
 				facultyId: this.$route.params.facultyId,
-				facultyName: 'ФИТУ',
+				facultyName: '',
 				courseNumber: this.$route.params.courseNumber,
 				groupId: this.$route.params.groupId,
-				groupName: 'ФИТУ 3-5Б'				
+				groupName: ''				
 			}
 		},
 		components: {
 			'h1-title': httpVueLoader('/js/components/common/h1-title.vue'),
+		},
+		created: function () {
+			axios
+				.get(`/api/faculties/${this.facultyId}`)
+				.then(response => this.facultyName = response.data.shortName);
+
+			axios
+				.get(`/api/groups/${this.groupId}`)
+				.then(response => this.groupName = response.data.name);
 		}
 	};
 </script>
