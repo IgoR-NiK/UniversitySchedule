@@ -14,8 +14,7 @@ namespace Repository.MsSqlRepository
 		public MsSqlFacultyRepository(ConnectionOptions options) 
 			: base(options) { }
 
-
-		public Task AddAsync(Faculty item)
+		public Task<Faculty> AddAsync(Faculty item)
 		{
 			throw new NotImplementedException();
 		}
@@ -38,14 +37,14 @@ namespace Repository.MsSqlRepository
 
 				using(var dbContext = GetDbContext())
 				{
-					faculties = dbContext.Faculties.ToList();
+					faculties = dbContext.Faculties.OrderBy(f => f.Name).ToList();
 				}
 
 				return faculties;
 			});
 		}
 
-		public Task UpdateAsync(Faculty item)
+		public Task<Faculty> UpdateAsync(Faculty item)
 		{
 			throw new NotImplementedException();
 		}

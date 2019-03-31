@@ -9,5 +9,7 @@ namespace Repository.Entities
 		public int Id { get; set; }
 		public string Name { get; set; }
 		public string ShortName { get; set; }
+		
+		public ICollection<Department> Departments { get; set; } = new List<Department>();
 	}
 }

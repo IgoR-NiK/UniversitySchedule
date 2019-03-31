@@ -11,6 +11,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 	<script src="https://unpkg.com/http-vue-loader"></script>
 	<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
 	<div id="app">
@@ -44,7 +45,7 @@
 
 					{ path: '/administration', component: httpVueLoader('/js/components/administration/administration-component.vue') },
 					{ path: '/administration/faculties', component: httpVueLoader('/js/components/administration/edit-faculties-component.vue') },
-					{ path: '/administration/chairs', component: httpVueLoader('/js/components/administration/edit-chairs-component.vue') },					
+					{ path: '/administration/departments', component: httpVueLoader('/js/components/administration/edit-departments-component.vue') },					
 
 					{ path: '/login', component: httpVueLoader('/js/components/login/login-component.vue') },
 					{ path: '*', redirect: '/index' }

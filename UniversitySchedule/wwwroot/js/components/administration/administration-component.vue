@@ -24,7 +24,7 @@
 					},
 					{
 						name: 'Редактирование кафедр',
-						path: '/administration/chairs'
+						path: '/administration/departments'
 					}
 				]
 			}

@@ -7,7 +7,7 @@ namespace Repository.Interfaces
 {
 	public interface IRepository<T> where T : class
 	{
-		Task AddAsync(T item);		
+		Task<T> AddAsync(T item);		
 
 		Task DeleteAsync(int id);
 
@@ -15,6 +15,6 @@ namespace Repository.Interfaces
 
 		Task<List<T>> GetEntityListAsync();
 
-		Task UpdateAsync(T item);
+		Task<T> UpdateAsync(T item);
 	}
 }

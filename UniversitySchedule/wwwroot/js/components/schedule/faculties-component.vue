@@ -18,32 +18,16 @@
 	module.exports = {
 		data: function () {
 			return {
-				faculties: [
-					{
-						id: 1,
-						shortName: 'ФИТУ',
-						name: 'Факультет информационных технологий и управления'
-					},
-					{
-						id: 2,
-						shortName: 'СФ',
-						name: 'Строительный факультет'
-					},
-					{
-						id: 3,
-						shortName: 'МФ',
-						name: 'Механический факультет'
-					},
-					{
-						id: 4,
-						shortName: 'ЭНФ',
-						name: 'Энергетический факультет'
-					}
-				]
+				faculties: []
 			}
 		},
 		components: {
 			'h1-title': httpVueLoader('/js/components/common/h1-title.vue'),
+		},
+		created: function () {
+			axios
+				.get('api/faculties')
+				.then(response => response.data.forEach(x => this.faculties.push(x)));
 		}
 	};
 </script>
