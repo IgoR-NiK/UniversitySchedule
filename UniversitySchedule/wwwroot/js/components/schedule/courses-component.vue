@@ -8,8 +8,8 @@
 		<span>Курсы</span>
 
 		<div class="list">
-			<router-link v-for="course in courses" v-bind:to="{ path: `/faculties/${facultyId}/courses/${course.id}/groups` }" class="list-item">
-				<h4> {{ course.name }} </h4>
+			<router-link v-for="course in courses" v-bind:to="{ path: `/faculties/${facultyId}/courses/${course}/groups` }" class="list-item">
+				<h4> {{ course }} курс </h4>
 			</router-link>
 		</div>
 	</div>
@@ -20,29 +20,25 @@
 		data: function () {
 			return {
 				facultyId: this.$route.params.facultyId,
-				facultyName: 'ФИТУ',
-				courses: [
-					{
-						id: 1,
-						name: '1 курс'
-					},
-					{
-						id: 2,
-						name: '2 курс'
-					},
-					{
-						id: 3,
-						name: '3 курс'
-					},
-					{
-						id: 4,
-						name: '4 курс'
-					}
-				]
+				facultyName: '',
+				courses: []
 			}
 		},
 		components: {
 			'h1-title': httpVueLoader('/js/components/common/h1-title.vue'),
+		},
+		created: function () {
+			axios
+				.get(`/api/faculties/${this.facultyId}`)
+				.then(response => this.facultyName = response.data.shortName);
+
+			axios
+				.get(`/api/courses`, {
+					params: {
+						facultyId: this.facultyId
+					}
+				})
+				.then(response => response.data.forEach(x => this.courses.push(x)));
 		}
 	};
 </script>

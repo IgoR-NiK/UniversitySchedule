@@ -26,7 +26,7 @@
 		},
 		created: function () {
 			axios
-				.get('api/faculties')
+				.get('/api/faculties')
 				.then(response => response.data.forEach(x => this.faculties.push(x)));
 		}
 	};

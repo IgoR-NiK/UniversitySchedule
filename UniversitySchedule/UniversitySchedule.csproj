@@ -14,7 +14,6 @@
 
 
   <ItemGroup>
-    <Folder Include="Models\" />
     <Folder Include="wwwroot\images\common\" />
     <Folder Include="wwwroot\js\components\errors\" />
     <Folder Include="wwwroot\lib\" />

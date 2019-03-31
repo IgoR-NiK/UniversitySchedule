@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-using Repository.Entities;
+using UniversitySchedule.Models;
+using UniversitySchedule.Converters;
 using Repository.Interfaces;
 
 namespace UniversitySchedule.Controllers
@@ -24,7 +25,19 @@ namespace UniversitySchedule.Controllers
 		[HttpGet]
 		public async Task<IEnumerable<Faculty>> Get()
 		{
-			return await FacultyRepository.GetEntityListAsync();
+			var faculties = await FacultyRepository.GetEntityListAsync();
+			return faculties.Select(f => FacultyConverter.Convert(f));
+		}
+
+		[HttpGet("{id}")]
+		public async Task<IActionResult> Get(int id)
+		{
+			var faculty = await FacultyRepository.GetEntityAsync(id);
+			
+			if (faculty == null)
+				return NotFound();
+
+			return new OkObjectResult(FacultyConverter.Convert(faculty));
 		}
 	}
 }

@@ -31,14 +31,14 @@ namespace Repository
 			modelBuilder.Entity<Faculty>().HasData(faculty1, faculty2, faculty3, faculty4);
 			
 			var department1 = new Department() { Id = 1, Name = "Программное обеспечение вычислительной техники", FacultyId = faculty1.Id };
-			var department2 = new Department() { Id = 2, Name = "Информационные технологии", FacultyId = faculty2.Id };
+			var department2 = new Department() { Id = 2, Name = "Информационные технологии", FacultyId = faculty1.Id };
 
 			modelBuilder.Entity<Department>().HasData(department1, department2);
 
 			var group1 = new Group() { Id = 1, Name = "ФИТУ 2-4А", StudentsCount = 12, CoursesNumber = 2, DepartmentId = department2.Id };
 			var group2 = new Group() { Id = 2, Name = "ФИТУ 2-4Б", StudentsCount = 20, CoursesNumber = 2, DepartmentId = department2.Id };
-			var group3 = new Group() { Id = 3, Name = "ФИТУ 3-5", StudentsCount = 15, CoursesNumber = 2, DepartmentId = department1.Id };
-			var group4 = new Group() { Id = 4, Name = "ФИТУ 3-5Б", StudentsCount = 25, CoursesNumber = 2, DepartmentId = department1.Id };
+			var group3 = new Group() { Id = 3, Name = "ФИТУ 3-5", StudentsCount = 15, CoursesNumber = 3, DepartmentId = department1.Id };
+			var group4 = new Group() { Id = 4, Name = "ФИТУ 3-5Б", StudentsCount = 25, CoursesNumber = 3, DepartmentId = department1.Id };
 
 			modelBuilder.Entity<Group>().HasData(group1, group2, group3, group4);
 		}
