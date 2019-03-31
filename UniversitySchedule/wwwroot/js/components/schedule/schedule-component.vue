@@ -5,9 +5,9 @@
 		<span>Навигация ::</span>
 		<span><router-link v-bind:to="{ path: `/faculties` }"> {{ facultyName }} </router-link></span>
 		<span> ➞ </span>
-		<span><router-link v-bind:to="{ path: `/faculties/${facultyId}/courses` }"> {{ courseId }} курс </router-link></span>
+		<span><router-link v-bind:to="{ path: `/faculties/${facultyId}/courses` }"> {{ courseNumber }} курс </router-link></span>
 		<span> ➞ </span>
-		<span><router-link v-bind:to="{ path: `/faculties/${facultyId}/courses/${courseId}/groups` }"> {{ groupName }} </router-link></span>
+		<span><router-link v-bind:to="{ path: `/faculties/${facultyId}/courses/${courseNumber}/groups` }"> {{ groupName }} </router-link></span>
 
 
 	</div>
@@ -19,7 +19,7 @@
 			return {
 				facultyId: this.$route.params.facultyId,
 				facultyName: 'ФИТУ',
-				courseId: this.$route.params.courseId,
+				courseNumber: this.$route.params.courseNumber,
 				groupId: this.$route.params.groupId,
 				groupName: 'ФИТУ 3-5Б'				
 			}

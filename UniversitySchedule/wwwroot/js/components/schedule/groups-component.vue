@@ -5,12 +5,12 @@
 		<span>Навигация ::</span>
 		<span><router-link v-bind:to="{ path: `/faculties` }"> {{ facultyName }} </router-link></span>
 		<span> ➞ </span>
-		<span><router-link v-bind:to="{ path: `/faculties/${facultyId}/courses` }"> {{ courseId }} курс </router-link></span>
+		<span><router-link v-bind:to="{ path: `/faculties/${facultyId}/courses` }"> {{ courseNumber }} курс </router-link></span>
 		<span> ➞ </span>
 		<span>Группы</span>
 
 		<div class="list">
-			<router-link v-for="group in groups" v-bind:to="{ path: `/faculties/${facultyId}/courses/${courseId}/groups/${group.id}/shedule` }" class="list-item">
+			<router-link v-for="group in groups" v-bind:to="{ path: `/faculties/${facultyId}/courses/${courseNumber}/groups/${group.id}/schedule` }" class="list-item">
 				<h4> {{ group.name }} </h4>
 			</router-link>
 		</div>
@@ -23,7 +23,7 @@
 			return {
 				facultyId: this.$route.params.facultyId,
 				facultyName: 'ФИТУ',
-				courseId: this.$route.params.courseId,
+				courseNumber: this.$route.params.courseNumber,
 				groups: [
 					{
 						id: 1,

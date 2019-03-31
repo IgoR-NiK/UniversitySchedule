@@ -35,10 +35,10 @@
 					{ path: '/', redirect: '/index' },
 					{ path: '/index', component: httpVueLoader('/js/components/main/main-component.vue') },
 
-					{ path: '/faculties', component: httpVueLoader('/js/components/shedule/faculties-component.vue') },
-					{ path: '/faculties/:facultyId/courses', component: httpVueLoader('/js/components/shedule/courses-component.vue') },
-					{ path: '/faculties/:facultyId/courses/:courseId/groups', component: httpVueLoader('/js/components/shedule/groups-component.vue') },
-					{ path: '/faculties/:facultyId/courses/:courseId/groups/:groupId/shedule', component: httpVueLoader('/js/components/shedule/shedule-component.vue') },
+					{ path: '/faculties', component: httpVueLoader('/js/components/schedule/faculties-component.vue') },
+					{ path: '/faculties/:facultyId/courses', component: httpVueLoader('/js/components/schedule/courses-component.vue') },
+					{ path: '/faculties/:facultyId/courses/:courseNumber/groups', component: httpVueLoader('/js/components/schedule/groups-component.vue') },
+					{ path: '/faculties/:facultyId/courses/:courseNumber/groups/:groupId/schedule', component: httpVueLoader('/js/components/schedule/schedule-component.vue') },
 
 					{ path: '/teachers', component: httpVueLoader('/js/components/teachers/teachers-component.vue') },
 
