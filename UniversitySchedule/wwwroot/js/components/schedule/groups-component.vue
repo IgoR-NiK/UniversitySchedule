@@ -22,30 +22,27 @@
 		data: function () {
 			return {
 				facultyId: this.$route.params.facultyId,
-				facultyName: 'ФИТУ',
+				facultyName: '',
 				courseNumber: this.$route.params.courseNumber,
-				groups: [
-					{
-						id: 1,
-						name: 'ФИТУ 3-5Б'
-					},
-					{
-						id: 2,
-						name: 'ФИТУ 3-5'
-					},
-					{
-						id: 3,
-						name: 'ФИТУ 3-4А'
-					},
-					{
-						id: 4,
-						name: 'ФИТУ 3-4Б'
-					}
-				]
+				groups: []
 			}
 		},
 		components: {
 			'h1-title': httpVueLoader('/js/components/common/h1-title.vue'),
+		},
+		created: function () {
+			axios
+				.get(`/api/faculties/${this.facultyId}`)
+				.then(response => this.facultyName = response.data.shortName);
+
+			axios
+				.get(`/api/groups`, {
+					params: {
+						facultyId: this.facultyId,
+						courseNumber: this.courseNumber
+					}
+				})
+				.then(response => response.data.forEach(x => this.groups.push(x)));
 		}
 	};
 </script>

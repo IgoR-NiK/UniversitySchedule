@@ -37,6 +37,7 @@ namespace UniversitySchedule
 
 			services.AddTransient(_ => new ConnectionOptions(Configuration.GetConnectionString("UniversityScheduleConnection")));
 			services.AddTransient<IFacultyRepository, MsSqlFacultyRepository>();
+			services.AddTransient<IGroupRepository, MsSqlGroupRepository>();
 
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 		}

@@ -33,11 +33,7 @@
 				.then(response => this.facultyName = response.data.shortName);
 
 			axios
-				.get(`/api/courses`, {
-					params: {
-						facultyId: this.facultyId
-					}
-				})
+				.get(`/api/courses?facultyId=${this.facultyId}`)
 				.then(response => response.data.forEach(x => this.courses.push(x)));
 		}
 	};
