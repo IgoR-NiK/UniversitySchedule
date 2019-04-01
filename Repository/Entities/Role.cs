@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Repository.Entities
 {
-	public class Faculty
+	public class Role
 	{
 		public int Id { get; set; }
 
@@ -13,10 +13,10 @@ namespace Repository.Entities
 		[StringLength(100)]
 		public string Name { get; set; }
 
-		[Required]
-		[StringLength(30)]
-		public string ShortName { get; set; }
-		
-		public ICollection<Department> Departments { get; set; } = new List<Department>();
+		[StringLength(300)]
+		public string Description { get; set; }
+
+		public ICollection<User> Users { get; set; } = new List<User>();
+		public ICollection<RoleWebPage> RoleWebPages { get; set; } = new List<RoleWebPage>();
 	}
 }
