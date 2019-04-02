@@ -13,7 +13,7 @@
 					<input type="text" name="password" placeholder="Пароль" />
 				</div>
 				<div class="login-row">
-					<button>Войти</button>
+					<button v-on:click="click">Войти</button>
 				</div>
 			</div>	
 		</div>
@@ -24,6 +24,11 @@
 	module.exports = {
 		components: {
 			'h1-title': httpVueLoader('/js/components/common/h1-title.vue')			
+		},
+		methods: {
+			click: function () {
+				store.commit('increment');
+			}
 		}
 	};
 </script>

@@ -12,6 +12,7 @@
 	<script src="https://unpkg.com/http-vue-loader"></script>
 	<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script src="https://unpkg.com/vuex@3.1.0/dist/vuex.js"></script>
 </head>
 <body>
 	<div id="app">
@@ -22,8 +23,23 @@
 	</div>
 
 	<script>
+		const store = new Vuex.Store({
+			state: {
+				firstName: '',
+				secondName: '',
+				token: '',
+				count: 0
+			},
+			mutations: {
+				increment: function (state) {
+					state.count++;
+				}
+			}
+		});
+
 		new Vue({
 			el: "#app",
+			store,
 			components: {
 				'common-title': httpVueLoader('/js/components/common/common-title.vue'),
 				'common-menu': httpVueLoader('/js/components/common/common-menu.vue'),

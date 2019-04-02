@@ -1,9 +1,14 @@
 ﻿<template>
-    <ul>
-        <li v-for="item in items">
-			<router-link v-bind:to="{ path: `${item.path}` }">{{ item.title }}</router-link>
-		</li>
-    </ul>
+	<div>
+		<ul>
+			<li v-for="item in items">
+				<router-link v-bind:to="{ path: `${item.path}` }">{{ item.title }}</router-link>
+			</li>
+		</ul>
+		<div class="welcome">
+			Добро пожаловать, Николаев Игорь! <button class="logout-button">Выйти</button>
+		</div>		
+	</div>    
 </template>
 
 <script>
@@ -26,7 +31,7 @@
 					}
 				]
 			}
-        }
+		}
     };
 </script>
 
@@ -65,4 +70,28 @@
 				ul li a:hover {
 					color: #F14E23;
 				}
+
+	.welcome {
+		float: right;
+		margin-right: 15px;
+		font: normal 16px 'YS Text','Helvetica Neue',Arial,sans-serif;
+	}
+
+	.logout-button {
+		width: auto;
+		cursor: pointer;
+		background-color: transparent;
+		border: 0;
+		padding: 0 20px;
+		margin: 5px;
+		font: normal 16px 'YS Text','Helvetica Neue',Arial,sans-serif;		
+		border-radius: 0;
+		outline: none;
+	}
+
+		.logout-button:active {
+			padding: 0 20px;
+			box-shadow: none;
+		}
+
 </style>
