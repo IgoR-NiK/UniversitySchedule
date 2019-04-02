@@ -12,6 +12,8 @@ namespace UniversitySchedule.Converters
 	{
 		public static Group Convert(DbGroup dbGroup)
 		{
+			if (dbGroup == null) return null;
+
 			return new Group()
 			{
 				Id = dbGroup.Id,
@@ -23,6 +25,8 @@ namespace UniversitySchedule.Converters
 
 		public static DbGroup Convert(Group group)
 		{
+			if (group == null) return null;
+
 			return new DbGroup()
 			{
 				Id = group.Id,

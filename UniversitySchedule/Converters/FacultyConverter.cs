@@ -12,6 +12,8 @@ namespace UniversitySchedule.Converters
 	{
 		public static Faculty Convert(DbFaculty dbFaculty)
 		{
+			if (dbFaculty == null) return null;
+
 			return new Faculty()
 			{
 				Id = dbFaculty.Id,
@@ -22,6 +24,8 @@ namespace UniversitySchedule.Converters
 
 		public static DbFaculty Convert(Faculty faculty)
 		{
+			if (faculty == null) return null;
+
 			return new DbFaculty()
 			{
 				Id = faculty.Id,

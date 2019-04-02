@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -9,10 +10,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 
 using Repository;
 using Repository.Interfaces;
 using Repository.MsSqlRepository;
+using UniversitySchedule.Authentication;
 
 namespace UniversitySchedule
 {
@@ -38,6 +41,27 @@ namespace UniversitySchedule
 			services.AddTransient(_ => new ConnectionOptions(Configuration.GetConnectionString("UniversityScheduleConnection")));
 			services.AddTransient<IFacultyRepository, MsSqlFacultyRepository>();
 			services.AddTransient<IGroupRepository, MsSqlGroupRepository>();
+			services.AddTransient<IUserRepository, MsSqlUserRepository>();
+
+			services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+					.AddJwtBearer(options =>
+					{
+						options.RequireHttpsMetadata = false;
+						options.TokenValidationParameters = new TokenValidationParameters
+						{
+							ValidateIssuer = true,
+							ValidIssuer = AuthOptions.Issuer,
+
+							ValidateAudience = true,
+							ValidAudience = AuthOptions.Audience,
+
+							RequireExpirationTime = true,
+							ValidateLifetime = true,
+
+							IssuerSigningKey = AuthOptions.SymmetricSecurityKey,
+							ValidateIssuerSigningKey = true,
+						};
+					});
 
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 		}
@@ -56,7 +80,9 @@ namespace UniversitySchedule
 
             app.UseStatusCodePagesWithReExecute("/Home/Index");
 
-            var provider = new FileExtensionContentTypeProvider();
+			app.UseAuthentication();
+
+			var provider = new FileExtensionContentTypeProvider();
             provider.Mappings[".vue"] = "text/html";
 
             app.UseStaticFiles(new StaticFileOptions
