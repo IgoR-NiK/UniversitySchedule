@@ -15,7 +15,7 @@ namespace UniversitySchedule.Authentication
 
 		const string Key= "ryF3Djk4r1e!i$jijfW1";
 
-		public const int LifeTime = 1;
+		public const int LifeTimeInMinutes = 10000;
 
 		public static SymmetricSecurityKey SymmetricSecurityKey { get; } = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Key));
 	}

@@ -5,15 +5,15 @@
 				<router-link v-bind:to="{ path: `${item.path}` }">{{ item.title }}</router-link>
 			</li>
 		</ul>
-		<div class="welcome">
-			Добро пожаловать, Николаев Игорь! <button class="logout-button">Выйти</button>
+		<div class="welcome" v-if="isAuthenticated">
+			Добро пожаловать, {{ secondName }} {{ firstName }}! <button class="logout-button" v-on:click="logoutClick">Выйти</button>
 		</div>		
 	</div>    
 </template>
 
 <script>
-    module.exports = {
-        data: function () {
+	module.exports = {
+		data: function () {
 			return {
 				items: [
 					{
@@ -31,8 +31,34 @@
 					}
 				]
 			}
+		},
+		computed: {
+			firstName: function () {
+				return this.$store.state.firstName;
+			},
+			secondName: function () {
+				return this.$store.state.secondName;
+			},
+			isAuthenticated: function () {
+				return this.$store.getters.isAuthenticated;
+			}
+		},
+		methods: {
+			logoutClick: function () {
+				localStorage.removeItem('user-token');
+				localStorage.removeItem('user-firstName');
+				localStorage.removeItem('user-secondName');
+
+				this.$store.commit('setToken', '');
+				this.$store.commit('setFirstName', '');
+				this.$store.commit('setSecondName', '');
+
+				delete axios.defaults.headers.common['Authorization'];
+
+				this.$router.push('/index');
+			}
 		}
-    };
+	};
 </script>
 
 <style scoped>

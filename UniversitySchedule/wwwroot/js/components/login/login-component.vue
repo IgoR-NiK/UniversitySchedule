@@ -6,16 +6,16 @@
 			<div class="area-inputs">
 				<div class="login-row">
 					<label for="login">Логин:</label>
-					<input type="text" name="login" placeholder="Логин" />
+					<input type="text" v-model="login" name="login" placeholder="Логин" />
 				</div>
 				<div class="login-row">
 					<label for="password">Пароль:</label>
-					<input type="text" name="password" placeholder="Пароль" />
+					<input type="password" v-model="password" name="password" placeholder="Пароль" />
 				</div>
 				<div class="login-row">
-					<button v-on:click="click">Войти</button>
+					<button v-on:click="loginClick">Войти</button>
 				</div>
-			</div>	
+			</div>
 		</div>
 	</div>
 </template>
@@ -25,9 +25,43 @@
 		components: {
 			'h1-title': httpVueLoader('/js/components/common/h1-title.vue')			
 		},
+		data: function () {
+			return {
+				login: '',
+				password: ''
+			}
+		},
 		methods: {
-			click: function () {
-				store.commit('increment');
+			loginClick: function () {
+				axios
+					.post('/api/login', {
+						login: this.login,
+						password: this.password
+					})
+					.then(response => {	
+						localStorage.setItem('user-token', response.data.token);
+						localStorage.setItem('user-firstName', response.data.firstName);
+						localStorage.setItem('user-secondName', response.data.secondName);
+
+						this.$store.commit('setToken', response.data.token);
+						this.$store.commit('setFirstName', response.data.firstName);
+						this.$store.commit('setSecondName', response.data.secondName);	
+
+						axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
+
+						this.$router.push('/administration');
+					})
+					.catch(error => {
+						localStorage.removeItem('user-token');
+						localStorage.removeItem('user-firstName');
+						localStorage.removeItem('user-secondName');
+
+						this.$store.commit('setToken', '');
+						this.$store.commit('setFirstName', '');
+						this.$store.commit('setSecondName', '');	
+
+						delete axios.defaults.headers.common['Authorization'];
+					})
 			}
 		}
 	};

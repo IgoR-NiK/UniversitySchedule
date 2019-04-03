@@ -10,6 +10,8 @@ using Microsoft.IdentityModel.Tokens;
 
 using Repository.Interfaces;
 using UniversitySchedule.Authentication;
+using UniversitySchedule.Models.Request;
+using UniversitySchedule.Models.Results;
 
 namespace UniversitySchedule.Controllers
 {
@@ -26,13 +28,13 @@ namespace UniversitySchedule.Controllers
 
 
 		[HttpPost]
-		public async Task<IActionResult> Post([FromBody] string login, [FromBody] string password)
+		public async Task<IActionResult> Post([FromBody] AccountRequest account)
 		{
-			var user = await UserRepository.GetUserAsync(login, password);
+			var user = await UserRepository.GetUserAsync(account.Login, account.Password);
 
 			if (user == null)
 			{
-				return new BadRequestObjectResult("Invalid username or password.");
+				return new BadRequestObjectResult("Неверный логин или пароль.");
 			}
 
 			var claims = new List<Claim>()
@@ -48,16 +50,18 @@ namespace UniversitySchedule.Controllers
 				audience: AuthOptions.Audience,
 				notBefore: now,
 				claims: claimsIdentity.Claims,
-				expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LifeTime)),
+				expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LifeTimeInMinutes)),
 				signingCredentials: new SigningCredentials(AuthOptions.SymmetricSecurityKey, SecurityAlgorithms.HmacSha256));
 			var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
 
-			return new OkObjectResult(new
+			var result = new AccountResult
 			{
 				Token = encodedJwt,
 				FirstName = user.FirstName,
 				SecondName = user.SecondName
-			});
+			};
+
+			return new OkObjectResult(result);
 		}
 	}
 }

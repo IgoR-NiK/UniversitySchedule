@@ -97,8 +97,8 @@ namespace Repository
 				Id = 2,
 				Login = "test",
 				Password = MD5.Create().ComputeHash(Encoding.Default.GetBytes("123")),
-				FirstName = "Тестовый",
-				SecondName = "Пользователь",
+				FirstName = "Пользователь",
+				SecondName = "Тестовый",
 				IsLocked = false,
 				Gender = GenderType.Male,
 				RoleId = role2.Id
