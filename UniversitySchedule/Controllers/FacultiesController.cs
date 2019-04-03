@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 using UniversitySchedule.Models;
 using UniversitySchedule.Converters;
 using Repository.Interfaces;
-using Microsoft.AspNetCore.Authorization;
 
 namespace UniversitySchedule.Controllers
 {
@@ -24,7 +23,6 @@ namespace UniversitySchedule.Controllers
 		}
 
 		[HttpGet]
-		[Authorize]
 		public async Task<IEnumerable<Faculty>> Get()
 		{
 			var faculties = await FacultyRepository.GetEntityListAsync();

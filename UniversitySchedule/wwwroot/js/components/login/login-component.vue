@@ -2,7 +2,7 @@
 	<div>
 		<h1-title>Выполнить вход</h1-title>
 		<div class="login-container">
-			<div>Для входа в раздел "Администрирование" введите логин и пароль"</div>
+			<div>Для входа в раздел "Администрирование" введите логин и пароль</div>
 			<div class="area-inputs">
 				<div class="login-row">
 					<label for="login">Логин:</label>

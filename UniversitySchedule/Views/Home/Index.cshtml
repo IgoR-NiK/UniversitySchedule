@@ -54,11 +54,9 @@
 		}
 
 		const ifAuthenticated = (to, from, next) => {
-			if (store.getters.isAuthenticated) {
-				next();
-			} else {
-				next('/login');
-			}
+			axios
+				.get(`/api/login/checkAuthenticated?path=${to.path}`)
+				.then(response => next())
 		}
 
 		var router = new VueRouter({
@@ -102,6 +100,9 @@
 					component: httpVueLoader('/js/components/login/login-component.vue'),
 					beforeEnter: ifNotAuthenticated
 				}, {
+					path: '/access-denied',
+					component: httpVueLoader('/js/components/errors/access-denied-component.vue'),
+				}, {
 					path: '*',
 					redirect: '/index'
 				}
@@ -139,6 +140,8 @@
 						delete axios.defaults.headers.common['Authorization'];
 
 						router.push('/login');
+					} else if (err.response.status == 403) {
+						router.push('/access-denied');
 					}
 
 					return Promise.reject(err);

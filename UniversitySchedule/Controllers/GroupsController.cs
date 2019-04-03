@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 using UniversitySchedule.Models;
 using UniversitySchedule.Converters;
 using Repository.Interfaces;
-using Microsoft.AspNetCore.Authorization;
 
 namespace UniversitySchedule.Controllers
 {
@@ -25,7 +24,6 @@ namespace UniversitySchedule.Controllers
 
 
 		[HttpGet]
-		[Authorize(Roles = "admin")]
 		public async Task<IEnumerable<Group>> Get(int facultyId, int courseNumber)
 		{
 			var groups = await GroupRepository.GetGroupsForFacultyAndCourseAsync(facultyId, courseNumber);

@@ -4,12 +4,14 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 
 using Repository.Interfaces;
 using UniversitySchedule.Authentication;
+using UniversitySchedule.Filters;
 using UniversitySchedule.Models.Request;
 using UniversitySchedule.Models.Results;
 
@@ -24,6 +26,15 @@ namespace UniversitySchedule.Controllers
 		public LoginController(IUserRepository userRepository)
 		{
 			UserRepository = userRepository;
+		}
+
+		[HttpGet]
+		[Authorize]
+		[TypeFilter(typeof(PageLimitAttribute))]
+		[Route("CheckAuthenticated")]
+		public IActionResult CheckAuthenticated(string path)
+		{
+			return new OkResult();
 		}
 
 
