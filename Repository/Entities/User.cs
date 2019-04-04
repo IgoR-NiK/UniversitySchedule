@@ -7,6 +7,9 @@ using Repository.Enums;
 
 namespace Repository.Entities
 {
+	/// <summary>
+	/// Пользователь.
+	/// </summary>
 	public class User
 	{
 		public int Id { get; set; }

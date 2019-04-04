@@ -5,6 +5,9 @@ using System.Text;
 
 namespace Repository.Entities
 {
+	/// <summary>
+	/// Учебная группа.
+	/// </summary>
 	public class Group
 	{
 		public int Id { get; set; }
@@ -24,5 +27,7 @@ namespace Repository.Entities
 		public Group ParentGroup { get; set; }
 
 		public ICollection<Group> ChildGroups { get; set; } = new List<Group>();
+		public ICollection<TeachingUnit> TeachingUnits { get; set; } = new List<TeachingUnit>();
+		public ICollection<GroupCourse> GroupCourses { get; set; } = new List<GroupCourse>();
 	}
 }

@@ -5,6 +5,9 @@ using System.Text;
 
 namespace Repository.Entities
 {
+	/// <summary>
+	/// Роль пользователя.
+	/// </summary>
 	public class Role
 	{
 		public int Id { get; set; }
@@ -17,6 +20,6 @@ namespace Repository.Entities
 		public string Description { get; set; }
 
 		public ICollection<User> Users { get; set; } = new List<User>();
-		public ICollection<RoleWebPage> RoleWebPages { get; set; } = new List<RoleWebPage>();
+		public ICollection<BanRoleWebPage> BanRoleWebPages { get; set; } = new List<BanRoleWebPage>();
 	}
 }

@@ -6,20 +6,16 @@ using System.Text;
 namespace Repository.Entities
 {
 	/// <summary>
-	/// Факультет.
+	/// Учебная неделя.
 	/// </summary>
-	public class Faculty
+	public class Week
 	{
 		public int Id { get; set; }
 
 		[Required]
-		[StringLength(100)]
+		[StringLength(50)]
 		public string Name { get; set; }
 
-		[Required]
-		[StringLength(30)]
-		public string ShortName { get; set; }
-		
-		public ICollection<Department> Departments { get; set; } = new List<Department>();
+		public ICollection<PeriodTimeslot> PeriodTimeslots { get; set; } = new List<PeriodTimeslot>();
 	}
 }

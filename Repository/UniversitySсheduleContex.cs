@@ -11,12 +11,31 @@ namespace Repository
 {
 	class UniversitySсheduleContex : DbContext
 	{
+		public DbSet<Building> Buildings { get; set; }
+		public DbSet<Classroom> Classrooms { get; set; }
+		public DbSet<ClassroomType> ClassroomTypes { get; set; }
+
+		public DbSet<Week> Weeks { get; set; }
+		public DbSet<Day> Days { get; set; }
+		public DbSet<DayTimeslot> DayTimeslots { get; set; }
+		public DbSet<PeriodTimeslot> PeriodTimeslots { get; set; }
+				
 		public DbSet<Faculty> Faculties { get; set; }
 		public DbSet<Department> Departments { get; set; }
 		public DbSet<Group> Groups { get; set; }
+
+		public DbSet<Course> Courses { get; set; }
+		public DbSet<LessonType> LessonTypes { get; set; }
+		public DbSet<Post> Posts { get; set; }
+		public DbSet<Teacher> Teachers { get; set; }
+
+		public DbSet<TeachingUnit> TeachingUnits { get; set; }
+
+		
 		public DbSet<User> Users { get; set; }
 		public DbSet<Role> Roles { get; set; }
 		public DbSet<WebPage> WebPages { get; set; }
+		
 
 		public UniversitySсheduleContex(DbContextOptions<UniversitySсheduleContex> options) 
 			: base(options)
@@ -26,20 +45,112 @@ namespace Repository
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
-			#region RoleWebPage
+			#region BanRoleWebPage
 
-			modelBuilder.Entity<RoleWebPage>()
+			modelBuilder.Entity<BanRoleWebPage>()
 				.HasKey(x => new { x.RoleId, x.WebPageId });
 
-			modelBuilder.Entity<RoleWebPage>()
-				.HasOne(rwp => rwp.Role)
-				.WithMany(r => r.RoleWebPages)
-				.HasForeignKey(rwp => rwp.RoleId);
+			modelBuilder.Entity<BanRoleWebPage>()
+				.HasOne(brwp => brwp.Role)
+				.WithMany(r => r.BanRoleWebPages)
+				.HasForeignKey(brwp => brwp.RoleId);
 
-			modelBuilder.Entity<RoleWebPage>()
-				.HasOne(rwp => rwp.WebPage)
-				.WithMany(wp => wp.RoleWebPages)
-				.HasForeignKey(rwp => rwp.WebPageId);
+			modelBuilder.Entity<BanRoleWebPage>()
+				.HasOne(brwp => brwp.WebPage)
+				.WithMany(wp => wp.BanRoleWebPages)
+				.HasForeignKey(brwp => brwp.WebPageId);
+
+			#endregion
+
+			#region BanClassroomPeriodTimeslot
+
+			modelBuilder.Entity<BanClassroomPeriodTimeslot>()
+				.HasKey(x => new { x.ClassroomId, x.PeriodTimeslotId });
+
+			modelBuilder.Entity<BanClassroomPeriodTimeslot>()
+				.HasOne(bcpt => bcpt.Classroom)
+				.WithMany(c => c.BanClassroomPeriodTimeslots)
+				.HasForeignKey(bcpt => bcpt.ClassroomId);
+
+			modelBuilder.Entity<BanClassroomPeriodTimeslot>()
+				.HasOne(bcpt => bcpt.PeriodTimeslot)
+				.WithMany(c => c.BanClassroomPeriodTimeslots)
+				.HasForeignKey(bcpt => bcpt.PeriodTimeslotId);
+
+			#endregion
+
+			#region BanTeacherPeriodTimeslot
+
+			modelBuilder.Entity<BanTeacherPeriodTimeslot>()
+				.HasKey(x => new { x.TeacherId, x.PeriodTimeslotId });
+
+			modelBuilder.Entity<BanTeacherPeriodTimeslot>()
+				.HasOne(btpt => btpt.Teacher)
+				.WithMany(c => c.BanTeacherPeriodTimeslots)
+				.HasForeignKey(btpt => btpt.TeacherId);
+
+			modelBuilder.Entity<BanTeacherPeriodTimeslot>()
+				.HasOne(btpt => btpt.PeriodTimeslot)
+				.WithMany(c => c.BanTeacherPeriodTimeslots)
+				.HasForeignKey(btpt => btpt.PeriodTimeslotId);
+
+			#endregion
+
+			#region TeacherCourse
+
+			modelBuilder.Entity<TeacherCourse>()
+				.HasKey(x => new { x.TeacherId, x.CourseId });
+
+			modelBuilder.Entity<TeacherCourse>()
+				.HasOne(tc => tc.Teacher)
+				.WithMany(t => t.TeacherCourses)
+				.HasForeignKey(tc => tc.TeacherId);
+
+			modelBuilder.Entity<TeacherCourse>()
+				.HasOne(tc => tc.Course)
+				.WithMany(c => c.TeacherCourses)
+				.HasForeignKey(tc => tc.CourseId);
+
+			#endregion
+
+			#region GroupCourse
+
+			modelBuilder.Entity<GroupCourse>()
+				.HasKey(x => new { x.GroupId, x.CourseId });
+
+			modelBuilder.Entity<GroupCourse>()
+				.HasOne(gc => gc.Group)
+				.WithMany(g => g.GroupCourses)
+				.HasForeignKey(gc => gc.GroupId);
+
+			modelBuilder.Entity<GroupCourse>()
+				.HasOne(gc => gc.Course)
+				.WithMany(c => c.GroupCourses)
+				.HasForeignKey(gc => gc.CourseId);
+
+			#endregion
+
+			#region TeachingUnitClassroomType
+
+			modelBuilder.Entity<TeachingUnitClassroomType>()
+				.HasKey(x => new { x.TeachingUnitId, x.ClassroomTypeId });
+
+			modelBuilder.Entity<TeachingUnitClassroomType>()
+				.HasOne(tuct => tuct.TeachingUnit)
+				.WithMany(tu => tu.TeachingUnitClassroomTypes)
+				.HasForeignKey(tuct => tuct.TeachingUnitId);
+
+			modelBuilder.Entity<TeachingUnitClassroomType>()
+				.HasOne(tuct => tuct.ClassroomType)
+				.WithMany(ct => ct.TeachingUnitClassroomTypes)
+				.HasForeignKey(tuct => tuct.ClassroomTypeId);
+
+			#endregion
+
+			#region Schedule
+
+			modelBuilder.Entity<Schedule>()
+				.HasKey(x => new { x.ClassroomId, x.PeriodTimeslotId });
 
 			#endregion
 
@@ -75,9 +186,9 @@ namespace Repository
 
 			modelBuilder.Entity<WebPage>().HasData(webPage1, webPage2);
 
-			var roleWebPage = new RoleWebPage() { RoleId = role2.Id, WebPageId = webPage2.Id };
+			var banRoleWebPage = new BanRoleWebPage() { RoleId = role2.Id, WebPageId = webPage2.Id };
 
-			modelBuilder.Entity<RoleWebPage>().HasData(roleWebPage);
+			modelBuilder.Entity<BanRoleWebPage>().HasData(banRoleWebPage);
 
 			var user1 = new User()
 			{

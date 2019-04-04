@@ -6,9 +6,9 @@ using System.Text;
 namespace Repository.Entities
 {
 	/// <summary>
-	/// Факультет.
+	/// Учебный корпус.
 	/// </summary>
-	public class Faculty
+	public class Building
 	{
 		public int Id { get; set; }
 
@@ -19,7 +19,7 @@ namespace Repository.Entities
 		[Required]
 		[StringLength(30)]
 		public string ShortName { get; set; }
-		
-		public ICollection<Department> Departments { get; set; } = new List<Department>();
+
+		public ICollection<Classroom> Classrooms { get; set; } = new List<Classroom>();
 	}
 }

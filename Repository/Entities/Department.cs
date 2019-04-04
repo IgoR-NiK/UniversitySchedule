@@ -5,6 +5,9 @@ using System.Text;
 
 namespace Repository.Entities
 {
+	/// <summary>
+	/// Кафедра.
+	/// </summary>
 	public class Department
 	{
 		public int Id { get; set; }
@@ -17,5 +20,6 @@ namespace Repository.Entities
 		public Faculty Faculty { get; set; }
 
 		public ICollection<Group> Groups { get; set; } = new List<Group>();
+		public ICollection<Teacher> Teachers { get; set; } = new List<Teacher>();
 	}
 }

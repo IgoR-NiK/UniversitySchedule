@@ -34,10 +34,10 @@ namespace Repository.MsSqlRepository
 				using (var dbContext = GetDbContext())
 				{
 					paths = dbContext.Roles
-								.Include(x => x.RoleWebPages)
+								.Include(x => x.BanRoleWebPages)
 								.ThenInclude(x => x.WebPage)
 								.FirstOrDefault(x => x.Name == roleName)
-								?.RoleWebPages.Select(x => x.WebPage.Path)
+								?.BanRoleWebPages.Select(x => x.WebPage.Path)
 								.ToList() ?? paths;
 				}
 

@@ -4,7 +4,10 @@ using System.Text;
 
 namespace Repository.Entities
 {
-	public class RoleWebPage
+	/// <summary>
+	/// Таблица связка "Роль - Страница" для ограничения страниц определенным ролям.
+	/// </summary>
+	public class BanRoleWebPage
 	{
 		public int RoleId { get; set; }
 		public Role Role { get; set; }

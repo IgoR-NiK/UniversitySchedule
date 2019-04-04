@@ -5,6 +5,9 @@ using System.Text;
 
 namespace Repository.Entities
 {
+	/// <summary>
+	/// Страница.
+	/// </summary>
 	public class WebPage
 	{
 		public int Id { get; set; }
@@ -17,6 +20,6 @@ namespace Repository.Entities
 		[StringLength(300)]
 		public string Path { get; set; }
 
-		public ICollection<RoleWebPage> RoleWebPages { get; set; } = new List<RoleWebPage>();
+		public ICollection<BanRoleWebPage> BanRoleWebPages { get; set; } = new List<BanRoleWebPage>();
 	}
 }

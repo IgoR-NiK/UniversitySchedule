@@ -6,9 +6,9 @@ using System.Text;
 namespace Repository.Entities
 {
 	/// <summary>
-	/// Факультет.
+	/// Должность преподавателя.
 	/// </summary>
-	public class Faculty
+	public class Post
 	{
 		public int Id { get; set; }
 
@@ -16,10 +16,9 @@ namespace Repository.Entities
 		[StringLength(100)]
 		public string Name { get; set; }
 
-		[Required]
-		[StringLength(30)]
-		public string ShortName { get; set; }
-		
-		public ICollection<Department> Departments { get; set; } = new List<Department>();
+		[StringLength(300)]
+		public string Description { get; set; }
+
+		public ICollection<Teacher> Teachers { get; set; } = new List<Teacher>();
 	}
 }

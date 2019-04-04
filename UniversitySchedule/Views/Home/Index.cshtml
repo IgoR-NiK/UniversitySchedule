@@ -96,7 +96,7 @@
 					component: httpVueLoader('/js/components/administration/edit-departments-component.vue'),
 					beforeEnter: ifAuthenticated
 				}, {
-					path: '/login',
+					path: '/administration/login',
 					component: httpVueLoader('/js/components/login/login-component.vue'),
 					beforeEnter: ifNotAuthenticated
 				}, {
@@ -139,7 +139,7 @@
 
 						delete axios.defaults.headers.common['Authorization'];
 
-						router.push('/login');
+						router.push('/administration/login');
 					} else if (err.response.status == 403) {
 						router.push('/access-denied');
 					}
