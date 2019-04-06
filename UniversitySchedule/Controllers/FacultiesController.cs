@@ -39,5 +39,12 @@ namespace UniversitySchedule.Controllers
 
 			return new OkObjectResult(FacultyConverter.Convert(faculty));
 		}
+
+		[HttpGet]
+		[Route("GetCoursesForFaculty")]
+		public async Task<IEnumerable<int>> GetCoursesForFaculty(int facultyId)
+		{
+			return await FacultyRepository.GetCoursesForFacultyAsync(facultyId);
+		}
 	}
 }

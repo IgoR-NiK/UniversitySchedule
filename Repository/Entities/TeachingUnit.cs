@@ -11,6 +11,8 @@ namespace Repository.Entities
 	{
 		public int Id { get; set; }
 
+		public int CountInPeriodTimeslot { get; set; }
+
 		public int GroupId { get; set; }
 		public Group Group { get; set; }
 
