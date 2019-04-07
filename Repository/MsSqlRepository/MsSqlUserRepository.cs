@@ -22,6 +22,16 @@ namespace Repository.MsSqlRepository
 			throw new NotImplementedException();
 		}
 
+		public Task<User> AddRangeAsync(IEnumerable<User> items)
+		{
+			throw new NotImplementedException();
+		}
+
+		public Task Clear()
+		{
+			throw new NotImplementedException();
+		}
+
 		public Task DeleteAsync(int id)
 		{
 			throw new NotImplementedException();
