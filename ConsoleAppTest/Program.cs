@@ -22,6 +22,7 @@ namespace ConsoleAppTest
 			var periodTimeslotRepository = new MsSqlPeriodTimeslotRepository(connectionOptions);
 			var classroomRepository = new MsSqlClassroomRepository(connectionOptions);
 			var teachingUnitRepository = new MsSqlTeachingUnitRepository(connectionOptions);
+			var scheduleRepository = new MsSqlScheduleRepository(connectionOptions);
 			
 			var periodTimeslots = (await periodTimeslotRepository.GetEntityListAsync())
 				.Select(x => PeriodTimeslotConverter.Convert(x)).ToList();
@@ -35,7 +36,8 @@ namespace ConsoleAppTest
 			var algorithm = new ScheduleGeneration(new RandomAlgorithm());
 			var result = algorithm.Run(classrooms, periodTimeslots, teachingUnits);
 
-
+			await scheduleRepository.Clear();
+			await scheduleRepository.AddRangeAsync(result.Select(x => ScheduleConverter.Convert(x)));
 					   			 
 			Console.ReadKey();
 		}

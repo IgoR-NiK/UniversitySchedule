@@ -9,7 +9,7 @@ namespace Repository.Interfaces
 	{
 		Task<T> AddAsync(T item);
 
-		Task<T> AddRangeAsync(IEnumerable<T> items);
+		Task AddRangeAsync(IEnumerable<T> items);
 
 		Task Clear();
 

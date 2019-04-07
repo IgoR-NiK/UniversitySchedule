@@ -17,12 +17,12 @@ namespace DataLayer
 			Algorithm = algorithm;
 		}
 
-		public Dictionary<(Classroom classroom, PeriodTimeslot periodTimeslot), TeachingUnit> Run(
+		public List<Schedule> Run(
 			List<Classroom> classrooms, List<PeriodTimeslot> periodTimeslots, List<TeachingUnit> teachingUnits)
 		{
 			// Ограничения аудиторий на таймслоты
 			var freeTimeslots = GetFreeTimeslots(classrooms, periodTimeslots);
-			var schedule = new Dictionary<(Classroom classroom, PeriodTimeslot periodTimeslot), TeachingUnit>();
+			var schedule = new List<Schedule>();
 
 			var isDone = false;
 			while (!isDone)
@@ -51,7 +51,7 @@ namespace DataLayer
 						}							
 
 						var timeslot = Algorithm.GetTimeslot(teachingUnits[i]);
-						schedule.Add(timeslot, teachingUnits[i]);
+						schedule.Add(new Schedule(timeslot.classroom, timeslot.periodTimeslot, teachingUnits[i]));
 
 						teachingUnits[i].FreeTimeslots.RemoveAll(t =>
 							t.periodTimeslot.Week.Equals(timeslot.periodTimeslot.Week) &&
@@ -79,7 +79,7 @@ namespace DataLayer
 
 				isDone = true;
 			}
-			
+
 			return schedule;
 		}
 

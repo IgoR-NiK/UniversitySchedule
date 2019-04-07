@@ -21,7 +21,7 @@ namespace Repository.MsSqlRepository
 			throw new NotImplementedException();
 		}
 
-		public Task<Group> AddRangeAsync(IEnumerable<Group> items)
+		public Task AddRangeAsync(IEnumerable<Group> items)
 		{
 			throw new NotImplementedException();
 		}
