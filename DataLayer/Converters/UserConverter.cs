@@ -44,8 +44,7 @@ namespace DataLayer.Converters
 				MiddleName = user.MiddleName,
 				IsLocked = user.IsLocked,
 				Gender = user.Gender,
-				RoleId = user.RoleId,
-				Role = RoleConverter.Convert(user.Role)
+				RoleId = user.RoleId
 			};
 		}
 	}
