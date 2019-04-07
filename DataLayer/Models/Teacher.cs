@@ -6,21 +6,22 @@ using Repository.Enums;
 
 namespace DataLayer.Models
 {
-	public class User
+	public class Teacher
 	{
 		public int Id { get; set; }
-		public string Login { get; set; }
-		public string Password { get; set; }
-
 		public string FirstName { get; set; }
 		public string SecondName { get; set; }
 		public string MiddleName { get; set; }
-
-		public bool IsLocked { get; set; }
 		public GenderType Gender { get; set; }
+		public DateTime Birthday { get; set; }
 
-		public int RoleId { get; set; }
-		public Role Role { get; set; }
+		public int? DepartmentId { get; set; }
+		public Department Department { get; set; }
+
+		public int? PostId { get; set; }
+		public Post Post { get; set; }
+
+		public List<PeriodTimeslot> BanPeriodTimeslots { get; set; } = new List<PeriodTimeslot>();
 
 		public override string ToString()
 		{
@@ -29,7 +30,7 @@ namespace DataLayer.Models
 
 		public override bool Equals(object obj)
 		{
-			return obj is User user ? Id == user.Id : false;
+			return obj is Teacher teacher ? Id == teacher.Id : false;
 		}
 	}
 }

@@ -17,6 +17,16 @@ namespace DataLayer.Models
 		public int? BuildingId { get; set; }
 		public Building Building { get; set; }
 
-		public List<int> BanPeriodTimeslots { get; set; } = new List<int>();
+		public List<PeriodTimeslot> BanPeriodTimeslots { get; set; } = new List<PeriodTimeslot>();
+
+		public override string ToString()
+		{
+			return Name;
+		}
+
+		public override bool Equals(object obj)
+		{
+			return obj is Classroom classroom ? Id == classroom.Id : false;
+		}
 	}
 }

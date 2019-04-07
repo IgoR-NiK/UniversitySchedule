@@ -15,6 +15,11 @@ namespace DataLayer.Models
 		public Day Day { get; set; }
 
 		public int DayTimeslotId { get; set; }
-		public DayTimeslot DayTimeslot { get; set; }		
+		public DayTimeslot DayTimeslot { get; set; }
+		
+		public override bool Equals(object obj)
+		{
+			return obj is PeriodTimeslot periodTimeslot ? Id == periodTimeslot.Id : false;
+		}
 	}
 }

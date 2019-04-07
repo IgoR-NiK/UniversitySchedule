@@ -28,7 +28,7 @@ namespace DataLayer.Converters
 				Building = BuildingConverter.Convert(dbClassroom.Building),
 
 				BanPeriodTimeslots = dbClassroom.BanClassroomPeriodTimeslots
-										.Select(x => x.PeriodTimeslotId)
+										.Select(x => PeriodTimeslotConverter.Convert(x.PeriodTimeslot))
 										.ToList()
 			};			
 		}

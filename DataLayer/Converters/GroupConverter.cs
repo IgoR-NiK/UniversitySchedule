@@ -19,7 +19,16 @@ namespace DataLayer.Converters
 				Id = dbGroup.Id,
 				Name = dbGroup.Name,
 				CoursesNumber = dbGroup.CoursesNumber,
-				StudentsCount = dbGroup.StudentsCount
+				StudentsCount = dbGroup.StudentsCount,
+
+				DepartmentId = dbGroup.DepartmentId,
+				Department = DepartmentConverter.Convert(dbGroup.Department),
+
+				ParentGroupId = dbGroup.ParentGroupId,
+
+				ChildGroups = dbGroup.ChildGroups
+								.Select(x => GroupConverter.Convert(x))
+								.ToList()
 			};
 		}
 
@@ -32,7 +41,9 @@ namespace DataLayer.Converters
 				Id = group.Id,
 				Name = group.Name,
 				CoursesNumber = group.CoursesNumber,
-				StudentsCount = group.StudentsCount
+				StudentsCount = group.StudentsCount,
+				DepartmentId = group.DepartmentId,
+				ParentGroupId = group.ParentGroupId
 			};
 		}
 	}

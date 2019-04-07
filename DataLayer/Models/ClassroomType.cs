@@ -8,5 +8,15 @@ namespace DataLayer.Models
 	{
 		public int Id { get; set; }
 		public string Name { get; set; }
+
+		public override string ToString()
+		{
+			return Name;
+		}
+
+		public override bool Equals(object obj)
+		{
+			return obj is ClassroomType classroomType ? Id == classroomType.Id : false;
+		}
 	}
 }

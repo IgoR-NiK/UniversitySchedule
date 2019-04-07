@@ -4,11 +4,10 @@ using System.Text;
 
 namespace DataLayer.Models
 {
-	public class DayTimeslot
+	public class Course
 	{
 		public int Id { get; set; }
 		public string Name { get; set; }
-		public DateTime StartTime { get; set; }
 
 		public override string ToString()
 		{
@@ -17,7 +16,7 @@ namespace DataLayer.Models
 
 		public override bool Equals(object obj)
 		{
-			return obj is DayTimeslot dayTimeslot ? Id == dayTimeslot.Id : false;
+			return obj is Course course ? Id == course.Id : false;
 		}
 	}
 }
