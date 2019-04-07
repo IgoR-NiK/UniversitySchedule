@@ -7,9 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UniversitySchedule", "Unive
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository", "Repository\Repository.csproj", "{5FC68123-27D9-49E3-B201-17D9B2EE428C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataLayer", "DataLayer\DataLayer.csproj", "{008E0F29-5266-4781-BC91-E7A68D6D187B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataLayer", "DataLayer\DataLayer.csproj", "{008E0F29-5266-4781-BC91-E7A68D6D187B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleAppTest", "ConsoleAppTest\ConsoleAppTest.csproj", "{C200A2AE-4182-4E62-999D-23B70CBC00F1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleAppTest", "ConsoleAppTest\ConsoleAppTest.csproj", "{C200A2AE-4182-4E62-999D-23B70CBC00F1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeneticAlgorithms", "GeneticAlgorithms\GeneticAlgorithms.csproj", "{422BD025-ECCF-471A-A08C-4A49FFC6C596}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{C200A2AE-4182-4E62-999D-23B70CBC00F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C200A2AE-4182-4E62-999D-23B70CBC00F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C200A2AE-4182-4E62-999D-23B70CBC00F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{422BD025-ECCF-471A-A08C-4A49FFC6C596}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{422BD025-ECCF-471A-A08C-4A49FFC6C596}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{422BD025-ECCF-471A-A08C-4A49FFC6C596}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{422BD025-ECCF-471A-A08C-4A49FFC6C596}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
