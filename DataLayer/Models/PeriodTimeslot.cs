@@ -16,7 +16,12 @@ namespace DataLayer.Models
 
 		public int DayTimeslotId { get; set; }
 		public DayTimeslot DayTimeslot { get; set; }
-		
+
+		public override string ToString()
+		{
+			return $"{Week}, {Day}, {DayTimeslot}";
+		}
+
 		public override bool Equals(object obj)
 		{
 			return obj is PeriodTimeslot periodTimeslot ? Id == periodTimeslot.Id : false;

@@ -13,14 +13,16 @@ namespace DataLayer
 			List<Classroom> classrooms, List<PeriodTimeslot> periodTimeslots, List<TeachingUnit> teachingUnits)
 		{
 			var freeTimeslots = GetFreeTimeslots(classrooms, periodTimeslots);	
+			teachingUnits.ForEach(
+				unit => unit.FreeTimeslots = freeTimeslots
+					.Where(t => unit.Group.StudentsCount < t.classroom.Capacity)
+					.Where(t => unit.ClassroomTypes.Contains(t.classroom.ClassroomType))
+					.Where(t => !unit.Teacher.BanPeriodTimeslots.Contains(t.periodTimeslot))
+					.ToList());
+						
+
+
 			var schedule = new Dictionary<(int classroomId, int periodTimeslotId), int>();
-
-
-			teachingUnits.ForEach(x => x.FreeTimeslots = new List<(int classroomId, int periodTimeslotId)>(freeTimeslots));
-			
-
-
-
 			return schedule;
 		}
 
@@ -28,9 +30,9 @@ namespace DataLayer
 		/// <summary>
 		/// Возвращает разрешенные таймслоты с учетом ограничения аудиторий.
 		/// </summary>
-		private List<(int classroomId, int periodTimeslotId)> GetFreeTimeslots(List<Classroom> classrooms, List<PeriodTimeslot> periodTimeslots)
+		private List<(Classroom classroom, PeriodTimeslot periodTimeslot)> GetFreeTimeslots(List<Classroom> classrooms, List<PeriodTimeslot> periodTimeslots)
 		{
-			var result = new List<(int classroomId, int periodTimeslotId)>();
+			var result = new List<(Classroom classroom, PeriodTimeslot periodTimeslot)>();
 
 			foreach (var classroom in classrooms)
 			{
@@ -38,7 +40,7 @@ namespace DataLayer
 				{
 					if (!classroom.BanPeriodTimeslots.Contains(periodTimeslot))
 					{
-						result.Add((classroom.Id, periodTimeslot.Id));
+						result.Add((classroom, periodTimeslot));
 					}
 				}
 			}

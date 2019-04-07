@@ -12,7 +12,7 @@ namespace DataLayer.Models
 
 		public override string ToString()
 		{
-			return Name;
+			return $"{Name} {StartTime.ToShortTimeString()}";
 		}
 
 		public override bool Equals(object obj)

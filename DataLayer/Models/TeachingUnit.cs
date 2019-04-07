@@ -24,8 +24,12 @@ namespace DataLayer.Models
 
 		public List<ClassroomType> ClassroomTypes { get; set; } = new List<ClassroomType>();
 
-		public List<(int classroomId, int periodTimeslotId)> FreeTimeslots { get; set; } = new List<(int, int)>();
-		
+		public List<(Classroom classroom, PeriodTimeslot periodTimeslot)> FreeTimeslots { get; set; } = new List<(Classroom, PeriodTimeslot)>();
+
+		public override string ToString()
+		{
+			return $"{Course} ({LessonType}), {Group}, {Teacher}";
+		}
 
 		public override bool Equals(object obj)
 		{
