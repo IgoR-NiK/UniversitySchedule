@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
 using Repository.Enums;
 
-namespace UniversitySchedule.Models
+namespace DataLayer.Models
 {
 	public class User
 	{

@@ -5,10 +5,10 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-using UniversitySchedule.Models;
+using DataLayer.Models;
 using DbUser = Repository.Entities.User;
 
-namespace UniversitySchedule.Converters
+namespace DataLayer.Converters
 {
 	public static class UserConverter
 	{

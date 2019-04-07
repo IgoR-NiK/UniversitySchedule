@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-using UniversitySchedule.Models;
-using UniversitySchedule.Converters;
+using DataLayer.Models;
+using DataLayer.Converters;
 using Repository.Interfaces;
 
 namespace UniversitySchedule.Controllers

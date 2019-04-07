@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-using UniversitySchedule.Models;
+using DataLayer.Models;
 using DbFaculty = Repository.Entities.Faculty;
 
-namespace UniversitySchedule.Converters
+namespace DataLayer.Converters
 {
 	public static class FacultyConverter
 	{

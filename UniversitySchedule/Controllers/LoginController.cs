@@ -12,8 +12,8 @@ using Microsoft.IdentityModel.Tokens;
 using Repository.Interfaces;
 using UniversitySchedule.Authentication;
 using UniversitySchedule.Filters;
-using UniversitySchedule.Models.Request;
-using UniversitySchedule.Models.Results;
+using DataLayer.Models.Request;
+using DataLayer.Models.Response;
 
 namespace UniversitySchedule.Controllers
 {
@@ -65,7 +65,7 @@ namespace UniversitySchedule.Controllers
 				signingCredentials: new SigningCredentials(AuthOptions.SymmetricSecurityKey, SecurityAlgorithms.HmacSha256));
 			var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
 
-			var result = new AccountResult
+			var result = new AccountResponse
 			{
 				Token = encodedJwt,
 				FirstName = user.FirstName,

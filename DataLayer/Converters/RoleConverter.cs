@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-using UniversitySchedule.Models;
+using DataLayer.Models;
 using DbRole = Repository.Entities.Role;
 
-namespace UniversitySchedule.Converters
+namespace DataLayer.Converters
 {
 	public static class RoleConverter
 	{
