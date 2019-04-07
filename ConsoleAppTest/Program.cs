@@ -6,7 +6,7 @@ using Repository;
 using Repository.MsSqlRepository;
 
 using DataLayer;
-using DataLayer.Models;
+using DataLayer.Algorithms;
 using DataLayer.Converters;
 
 namespace ConsoleAppTest
@@ -32,8 +32,10 @@ namespace ConsoleAppTest
 			var teachingUnits = (await teachingUnitRepository.GetEntityListAsync())
 				.Select(x => TeachingUnitConverter.Convert(x)).ToList();					
 
-			var algorithm = new Algorithm();
+			var algorithm = new ScheduleGeneration(new RandomAlgorithm());
 			var result = algorithm.Run(classrooms, periodTimeslots, teachingUnits);
+
+
 					   			 
 			Console.ReadKey();
 		}
