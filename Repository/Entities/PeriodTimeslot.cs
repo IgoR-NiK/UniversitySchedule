@@ -22,6 +22,6 @@ namespace Repository.Entities
 
 		public ICollection<BanClassroomPeriodTimeslot> BanClassroomPeriodTimeslots { get; set; } = new List<BanClassroomPeriodTimeslot>();
 		public ICollection<BanTeacherPeriodTimeslot> BanTeacherPeriodTimeslots { get; set; } = new List<BanTeacherPeriodTimeslot>();
-		public ICollection<Schedule> Schedules { get; set; } = new List<Schedule>();
+		public ICollection<ScheduleCell> ScheduleCells { get; set; } = new List<ScheduleCell>();
 	}
 }

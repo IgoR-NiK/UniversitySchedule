@@ -6,7 +6,7 @@ using Repository.Entities;
 
 namespace Repository.Interfaces
 {
-	public interface IScheduleRepository : IRepository<Schedule>
+	public interface IScheduleCellRepository : IRepository<ScheduleCell>
 	{
 	}
 }

@@ -17,12 +17,12 @@ namespace DataLayer
 			Algorithm = algorithm;
 		}
 
-		public List<Schedule> Run(
+		public Schedule Run(
 			List<Classroom> classrooms, List<PeriodTimeslot> periodTimeslots, List<TeachingUnit> teachingUnits)
 		{
 			// Ограничения аудиторий на таймслоты
 			var freeTimeslots = GetFreeTimeslots(classrooms, periodTimeslots);
-			var schedule = new List<Schedule>();
+			var schedule = new Schedule();
 
 			var isDone = false;
 			while (!isDone)
@@ -35,7 +35,7 @@ namespace DataLayer
 					.Where(t => !unit.Teacher.BanPeriodTimeslots.Contains(t.periodTimeslot))	// Ограничения преподавателей на таймслоты
 					.ToList());
 
-				schedule.Clear();
+				schedule.ScheduleCells.Clear();
 
 				teachingUnits = Algorithm.GetTeachingUnits(teachingUnits);
 
@@ -51,7 +51,7 @@ namespace DataLayer
 						}							
 
 						var timeslot = Algorithm.GetTimeslot(teachingUnits[i]);
-						schedule.Add(new Schedule(timeslot.classroom, timeslot.periodTimeslot, teachingUnits[i]));
+						schedule.ScheduleCells.Add(new ScheduleCell(timeslot.classroom, timeslot.periodTimeslot, teachingUnits[i]));
 
 						teachingUnits[i].FreeTimeslots.RemoveAll(t =>
 							t.periodTimeslot.Week.Equals(timeslot.periodTimeslot.Week) &&

@@ -5,9 +5,9 @@ using System.Text;
 namespace Repository.Entities
 {
 	/// <summary>
-	/// Расписание.
+	/// Ячейка расписания.
 	/// </summary>
-	public class Schedule
+	public class ScheduleCell
 	{
 		public int ClassroomId { get; set; }
 		public Classroom Classroom { get; set; }

@@ -7,23 +7,23 @@ using Repository.Interfaces;
 
 namespace Repository.MsSqlRepository
 {
-	public class MsSqlScheduleRepository : MsSqlBaseRepository, IScheduleRepository
+	public class MsSqlScheduleCellRepository : MsSqlBaseRepository, IScheduleCellRepository
 	{
-		public MsSqlScheduleRepository(ConnectionOptions options) 
+		public MsSqlScheduleCellRepository(ConnectionOptions options) 
 			: base(options) { }
 
-		public Task<Schedule> AddAsync(Schedule item)
+		public Task<ScheduleCell> AddAsync(ScheduleCell item)
 		{
 			throw new NotImplementedException();
 		}
 
-		public Task AddRangeAsync(IEnumerable<Schedule> items)
+		public Task AddRangeAsync(IEnumerable<ScheduleCell> items)
 		{
 			return Task.Run(async() =>
 			{
 				using (var dbContext = GetDbContext())
 				{
-					await dbContext.AddRangeAsync(items);
+					await dbContext.ScheduleCells.AddRangeAsync(items);
 					await dbContext.SaveChangesAsync();
 				}
 			});
@@ -35,7 +35,7 @@ namespace Repository.MsSqlRepository
 			{
 				using (var dbContext = GetDbContext())
 				{
-					dbContext.Schedules.RemoveRange(dbContext.Schedules);
+					dbContext.ScheduleCells.RemoveRange(dbContext.ScheduleCells);
 					await dbContext.SaveChangesAsync();
 				}
 			});
@@ -46,17 +46,17 @@ namespace Repository.MsSqlRepository
 			throw new NotImplementedException();
 		}
 
-		public Task<Schedule> GetEntityAsync(int id)
+		public Task<ScheduleCell> GetEntityAsync(int id)
 		{
 			throw new NotImplementedException();
 		}
 
-		public Task<List<Schedule>> GetEntityListAsync()
+		public Task<List<ScheduleCell>> GetEntityListAsync()
 		{
 			throw new NotImplementedException();
 		}
 
-		public Task<Schedule> UpdateAsync(Schedule item)
+		public Task<ScheduleCell> UpdateAsync(ScheduleCell item)
 		{
 			throw new NotImplementedException();
 		}

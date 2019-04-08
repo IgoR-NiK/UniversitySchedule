@@ -26,6 +26,6 @@ namespace Repository.Entities
 		public LessonType LessonType { get; set; }
 
 		public ICollection<TeachingUnitClassroomType> TeachingUnitClassroomTypes { get; set; } = new List<TeachingUnitClassroomType>();
-		public ICollection<Schedule> Schedules { get; set; } = new List<Schedule>();
+		public ICollection<ScheduleCell> ScheduleCells { get; set; } = new List<ScheduleCell>();
 	}
 }

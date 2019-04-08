@@ -31,7 +31,7 @@ namespace Repository
 		public DbSet<Teacher> Teachers { get; set; }
 
 		public DbSet<TeachingUnit> TeachingUnits { get; set; }
-		public DbSet<Schedule> Schedules { get; set; }
+		public DbSet<ScheduleCell> ScheduleCells { get; set; }
 		
 		public DbSet<User> Users { get; set; }
 		public DbSet<Role> Roles { get; set; }
@@ -148,9 +148,9 @@ namespace Repository
 
 			#endregion
 
-			#region Schedule
+			#region ScheduleCell
 
-			modelBuilder.Entity<Schedule>()
+			modelBuilder.Entity<ScheduleCell>()
 				.HasKey(x => new { x.ClassroomId, x.PeriodTimeslotId });
 
 			#endregion
@@ -436,7 +436,7 @@ namespace Repository
 
 			#endregion
 
-			#region Расписание
+			#region Ячейки расписания
 
 
 
