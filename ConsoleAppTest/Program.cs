@@ -5,9 +5,8 @@ using System.Threading.Tasks;
 using Repository;
 using Repository.MsSqlRepository;
 
-using DataLayer;
-using DataLayer.Algorithms;
 using DataLayer.Converters;
+using DataLayer.ScheduleGenerations;
 
 namespace ConsoleAppTest
 {
@@ -31,13 +30,13 @@ namespace ConsoleAppTest
 				.Select(x => ClassroomConverter.Convert(x)).ToList();
 
 			var teachingUnits = (await teachingUnitRepository.GetEntityListAsync())
-				.Select(x => TeachingUnitConverter.Convert(x)).ToList();					
+				.Select(x => TeachingUnitConverter.Convert(x)).ToList();
 
-			var algorithm = new ScheduleGeneration(new RandomAlgorithm());
-			var result = algorithm.Run(classrooms, periodTimeslots, teachingUnits);
+			var generation = new RandomScheduleGeneration(10);
+			var schedules = generation.Run(classrooms, periodTimeslots, teachingUnits);
 
 			await scheduleCellRepository.Clear();
-			await scheduleCellRepository.AddRangeAsync(result.ScheduleCells.Select(x => ScheduleCellConverter.Convert(x)));
+			await scheduleCellRepository.AddRangeAsync(schedules.First().ScheduleCells.Select(x => ScheduleCellConverter.Convert(x)));
 					   			 
 			Console.ReadKey();
 		}
