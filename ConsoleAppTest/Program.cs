@@ -62,14 +62,13 @@ namespace ConsoleAppTest
 			ArrayChromosomeSolutions.Appearences.Bool(ga);
 			ArrayChromosomeSolutions.Mutators.Bool(ga);
 			ArrayChromosomeSolutions.Crossover.Mix<ArrayChromosome<bool>, bool>(ga);
-					   
-			ga.Evaluate = chromosome =>
+				
+			ga.Evaluate += chromosome =>
 			{
 				chromosome.Value =
 					1.0 / (1 + Math.Abs(Enumerable.Range(0, Count).Sum(z => Weights[z] * (chromosome.Code[z] ? -1 : 1))));
 			};
 
-			var i = 0;
 			while (true)
 			{				
 				var watch = new Stopwatch();
@@ -77,11 +76,10 @@ namespace ConsoleAppTest
 
 				while (watch.ElapsedMilliseconds < 200)
 				{
-					i++;
 					ga.MakeIteration();
 
 					Console.Clear();
-					Console.WriteLine($"Итерация: {i}");
+					Console.WriteLine($"Итерация: {ga.CurrentIteration}");
 					Console.WriteLine($"Среднее значение: {ga.Pool.Average(z => z.Value)}");
 					Console.WriteLine($"Максимальное значение: {ga.Pool.Max(z => z.Value)}");
 					Console.WriteLine($"Средний возраст: {ga.Pool.Average(z => z.Age)}");

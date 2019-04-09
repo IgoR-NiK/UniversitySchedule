@@ -8,9 +8,7 @@ namespace GeneticAlgorithms.Core
 	{
 		public double Value { get; set; }
 		public int Age { get; internal set; }
-
-		public bool Evaluated { get; internal set; }
-		public int Generation { get; internal set; }
+		public bool IsEvaluated { get; internal set; }
 
 		public override string ToString()
 		{

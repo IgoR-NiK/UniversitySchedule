@@ -20,7 +20,7 @@ namespace GeneticAlgorithms.Common.Solutions
 					var g = alg.CreateEmptyChromosome();
 					g.CheckLength(g1, g2);
 					g.SetCode(i => alg.Rnd.Next(2) == 0 ? g1.Code[i] : g2.Code[i]);
-					return g;
+					return new G[] { g };
 				};
 			}
 		}
@@ -38,7 +38,7 @@ namespace GeneticAlgorithms.Common.Solutions
 					g.SetCode(p => gen.Code[p]);
 					var position = alg.Rnd.Next(g.Code.Length);
 					g.Code[position] = elementMutation(g.Code[position]);
-					return g;
+					return new G[] { g };
 				};
 			}
 

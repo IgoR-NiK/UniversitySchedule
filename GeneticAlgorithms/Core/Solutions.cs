@@ -25,10 +25,10 @@ namespace GeneticAlgorithms.Core
 			{
 				alg.GetMutationOrigins = () =>
 				{
-					var res = new Tuple<G, int>[(int)(alg.Pool.Count * mutationPercentage)];
+					var res = new G[(int)(alg.Pool.Count * mutationPercentage)];
 
 					for (int i = 0; i < res.Length; i++)
-						res[i] = new Tuple<G, int>(alg.RandomChromosomeFromPool(), 1);
+						res[i] = alg.RandomChromosomeFromPool;
 
 					return res;
 				};
@@ -42,10 +42,10 @@ namespace GeneticAlgorithms.Core
 			{
 				alg.GetCrossoverFamilies = () =>
 				{
-					var res = new Tuple<G, G, int>[(int)(alg.Pool.Count * familiesPercentage)];
+					var res = new (G, G)[(int)(alg.Pool.Count * familiesPercentage)];
 
 					for (int i = 0; i < res.Length; i++)
-						res[i] = new Tuple<G, G, int>(alg.RandomChromosomeFromPool(), alg.RandomChromosomeFromPool(), 1);
+						res[i] = (alg.RandomChromosomeFromPool, alg.RandomChromosomeFromPool);
 
 					return res;
 				};
@@ -57,9 +57,9 @@ namespace GeneticAlgorithms.Core
 			public static void Threashold<G>(GeneticAlgorithm<G> alg, int maxPoolSize)
 				where G : Chromosome, IEquatable<G>
 			{
-				alg.PerformSelection = (from, to) =>
+				alg.PerformSelection = source =>
 				{
-					to.AddRange(from.OrderBy(z => -z.Value).Take(maxPoolSize));
+					return source.OrderBy(z => -z.Value).Take(maxPoolSize);
 				};
 			}
 		}
