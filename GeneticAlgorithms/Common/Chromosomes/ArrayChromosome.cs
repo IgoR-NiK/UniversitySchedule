@@ -6,21 +6,41 @@ using GeneticAlgorithms.Core;
 
 namespace GeneticAlgorithms.Common.Chromosomes
 {
-	public abstract class ArrayChromosome : Chromosome
+	public class ArrayChromosome<T> : Chromosome, IEquatable<ArrayChromosome<T>>
+		where T : IEquatable<T>
 	{
-		public abstract Array ObjectCode { get; }
+		public T[] Code { get; }
 
-		public void SetObjectCode(Func<int, object> getCodeValue)
+
+		public ArrayChromosome(int length)
 		{
-			for (int i = 0; i < ObjectCode.Length; i++)
-				ObjectCode.SetValue(getCodeValue(i), i);
+			Code = new T[length];
 		}
 
-		public void CheckLength(params ArrayChromosome[] genes)
+
+		public void SetCode(Func<int, T> getCodeValue)
+		{
+			for (int i = 0; i < Code.Length; i++)
+				Code[i] = getCodeValue(i);
+		}
+
+		public void CheckLength(params ArrayChromosome<T>[] genes)
 		{
 			for (int i = 0; i < genes.Length; i++)
-				if (ObjectCode.Length != genes[i].ObjectCode.Length)
-					throw new Exception("Length check failed for ArrayGenes. All genes in algorithm are supposed to have the same length, ot standard solutions will not work");
+				if (Code.Length != genes[i].Code.Length)
+					throw new Exception("Все хромосомы должны быть одинаковой длинны");
+		}
+
+		public bool Equals(ArrayChromosome<T> other)
+		{
+			if (Code.Length != other.Code.Length)			
+				return false;
+			
+			for (var i = 0; i < Code.Length; i++)			
+				if (!Code[i].Equals(other.Code[i]))				
+					return false;			
+
+			return true;
 		}
 	}
 }

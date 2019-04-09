@@ -5,7 +5,7 @@ using System.Text;
 
 namespace GeneticAlgorithms.Core
 {
-	public class GeneticAlgorithm<T> where T : Chromosome
+	public class GeneticAlgorithm<T> where T : Chromosome, IEquatable<T>
 	{
 		public Func<T> CreateEmptyChromosome;
 		public Action<T> Evaluate;
@@ -50,7 +50,6 @@ namespace GeneticAlgorithms.Core
 		public List<T> Bank { get; private set; }
 
 		public int CurrentIteration { get; private set; }
-		public int CurrentId { get; private set; }
 
 		public bool CanKeepOldGenesInBuffer = true;
 		public bool ReevaluateOldGenes = false;
@@ -84,7 +83,6 @@ namespace GeneticAlgorithms.Core
 					{
 						var m = PerformMutation(source.Item1);
 						if (m == null) continue;
-						m.Parent1 = source.Item1.Id;
 						Buffer.Add(m);
 					}
 				}
@@ -99,8 +97,6 @@ namespace GeneticAlgorithms.Core
 					{
 						var cross = PerformCrossover(pair.Item1, pair.Item2);
 						if (cross == null) continue;
-						cross.Parent1 = pair.Item1.Id;
-						cross.Parent2 = pair.Item2.Id;
 						Buffer.Add(cross);
 					}
 				}
@@ -143,7 +139,6 @@ namespace GeneticAlgorithms.Core
 			{
 				g.Evaluated = true;
 				g.Age++;
-				if (g.Id == 0) g.Id = ++CurrentId;
 				if (g.Generation == 0) g.Generation = CurrentIteration;
 			}
 

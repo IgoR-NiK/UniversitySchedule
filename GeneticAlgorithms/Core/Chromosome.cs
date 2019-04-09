@@ -4,20 +4,17 @@ using System.Text;
 
 namespace GeneticAlgorithms.Core
 {
-	public abstract class Chromosome : IEquatable<Chromosome>
+	public abstract class Chromosome
 	{
-		public bool Evaluated { get; internal set; }
-		public int Id { get; internal set; }
-		public int Generation { get; internal set; }
-		public int Age { get; internal set; }
-		public int Parent1 { get; internal set; }
-		public int Parent2 { get; internal set; }
 		public double Value { get; set; }
-		public abstract bool Equals(Chromosome other);
+		public int Age { get; internal set; }
+
+		public bool Evaluated { get; internal set; }
+		public int Generation { get; internal set; }
 
 		public override string ToString()
 		{
-			return Value.ToString();
+			return $"Value = {Value}, Age = {Age}";
 		}
 	}
 }

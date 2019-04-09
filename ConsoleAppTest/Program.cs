@@ -8,11 +8,10 @@ using Repository.MsSqlRepository;
 using DataLayer.Converters;
 using DataLayer.ScheduleGenerations;
 
-
 using System.Diagnostics;
 using GeneticAlgorithms.Core;
 using GeneticAlgorithms.Common.Chromosomes;
-using GeneticAlgorithms.Common;
+using GeneticAlgorithms.Common.Solutions;
 
 namespace ConsoleAppTest
 {
@@ -57,17 +56,13 @@ namespace ConsoleAppTest
 
 			Solutions.AppearenceCount.MinimalPoolSize(ga, 40);
 			Solutions.MutationOrigins.Random(ga, 0.5);
-			Solutions.CrossFamilies.Random(ga, z => z * 0.5);
+			Solutions.CrossFamilies.Random(ga, 0.5);
 			Solutions.Selections.Threashold(ga, 40);
-
-
-
-			ArrayGeneSolutions.Appearences.Bool(ga);
-			ArrayGeneSolutions.Mutators.Bool(ga);
-			ArrayGeneSolutions.Crossover.Mix(ga);
-
-
-
+					   
+			ArrayChromosomeSolutions.Appearences.Bool(ga);
+			ArrayChromosomeSolutions.Mutators.Bool(ga);
+			ArrayChromosomeSolutions.Crossover.Mix<ArrayChromosome<bool>, bool>(ga);
+					   
 			ga.Evaluate = chromosome =>
 			{
 				chromosome.Value =
