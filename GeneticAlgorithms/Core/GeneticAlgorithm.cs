@@ -16,8 +16,8 @@ namespace GeneticAlgorithms.Core
 		public Func<T, T, IEnumerable<T>> PerformCrossover { get; set; }
 		public Func<IEnumerable<T>, IEnumerable<T>> PerformSelection { get; set; }
 
-		public event Action<T> Evaluate;
-		public event Action PerformBanking;
+		public Action<T> Evaluate;
+		public Action PerformBanking;
 
 		public event Action IterationBegins;
 		public event Action IterationCompleted;
@@ -30,14 +30,14 @@ namespace GeneticAlgorithms.Core
 		public List<T> Buffer { get; } = new List<T>();
 		public List<T> Bank { get; } = new List<T>();
 
-		public IEnumerable<Chromosome> ChromosomePool => Pool.OrderByDescending(c => c.Value);
-		public IEnumerable<Chromosome> ChromosomeBank => Bank.OrderByDescending(c => c.Value);
+		public IEnumerable<T> ChromosomePool => Pool.OrderByDescending(c => c.Value);
+		public IEnumerable<T> ChromosomeBank => Bank.OrderByDescending(c => c.Value);
 
 		public int CurrentIteration { get; private set; }
 
-		public bool CanKeepOldGenesInBuffer { get; } = true;
-		public bool ReevaluateOldGenes { get; } = false;
-		public bool RemoveEqualGenes { get; } = true;
+		public bool CanKeepOldGenesInBuffer { get; set; } = true;
+		public bool ReevaluateOldGenes { get; set; } = false;
+		public bool RemoveEqualGenes { get; set; } = true;
 
 		public bool IsBanking => PerformBanking != null;
 
@@ -98,8 +98,6 @@ namespace GeneticAlgorithms.Core
 			if (CanKeepOldGenesInBuffer)
 				Buffer.AddRange(Pool);
 
-			Pool.Clear();
-
 			if (RemoveEqualGenes)
 				for (var i = Buffer.Count - 1; i >= 0; i--)
 					for (var j = i - 1; j >= 0; j--)
@@ -108,6 +106,8 @@ namespace GeneticAlgorithms.Core
 							Buffer.RemoveAt(j);
 							i--;
 						}
+
+			Pool.Clear();
 
 			EvaluationBegins?.Invoke();
 

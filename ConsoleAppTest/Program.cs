@@ -8,10 +8,10 @@ using Repository.MsSqlRepository;
 using DataLayer.Converters;
 using DataLayer.ScheduleGenerations;
 
-using System.Diagnostics;
 using GeneticAlgorithms.Core;
 using GeneticAlgorithms.Common.Chromosomes;
 using GeneticAlgorithms.Common.Solutions;
+using DataLayer.ScheduleGenerations.Genetic;
 
 namespace ConsoleAppTest
 {
@@ -21,38 +21,36 @@ namespace ConsoleAppTest
 
 		static async Task Main(string[] args)
 		{
-			/*	var connectionOptions = new ConnectionOptions(ConnectionString);
+			var connectionOptions = new ConnectionOptions(ConnectionString);
 
-				var periodTimeslotRepository = new MsSqlPeriodTimeslotRepository(connectionOptions);
-				var classroomRepository = new MsSqlClassroomRepository(connectionOptions);
-				var teachingUnitRepository = new MsSqlTeachingUnitRepository(connectionOptions);
-				var scheduleCellRepository = new MsSqlScheduleCellRepository(connectionOptions);
+			var periodTimeslotRepository = new MsSqlPeriodTimeslotRepository(connectionOptions);
+			var classroomRepository = new MsSqlClassroomRepository(connectionOptions);
+			var teachingUnitRepository = new MsSqlTeachingUnitRepository(connectionOptions);
+			var scheduleCellRepository = new MsSqlScheduleCellRepository(connectionOptions);
 
-				var periodTimeslots = (await periodTimeslotRepository.GetEntityListAsync())
-					.Select(x => PeriodTimeslotConverter.Convert(x)).ToList();
+			var periodTimeslots = (await periodTimeslotRepository.GetEntityListAsync())
+				.Select(x => PeriodTimeslotConverter.Convert(x)).ToList();
 
-				var classrooms = (await classroomRepository.GetEntityListAsync())
-					.Select(x => ClassroomConverter.Convert(x)).ToList();
+			var classrooms = (await classroomRepository.GetEntityListAsync())
+				.Select(x => ClassroomConverter.Convert(x)).ToList();
 
-				var teachingUnits = (await teachingUnitRepository.GetEntityListAsync())
-					.Select(x => TeachingUnitConverter.Convert(x)).ToList();
+			var teachingUnits = (await teachingUnitRepository.GetEntityListAsync())
+				.Select(x => TeachingUnitConverter.Convert(x)).ToList();
 
-				var generation = new RandomScheduleGeneration(10);
-				var schedules = generation.Run(classrooms, periodTimeslots, teachingUnits);
+			var generation = new GeneticScheduleGeneration(10);
+			var schedules = generation.Run(classrooms, periodTimeslots, teachingUnits);
 
-				await scheduleCellRepository.Clear();
-				await scheduleCellRepository.AddRangeAsync(schedules.First().ScheduleCells.Select(x => ScheduleCellConverter.Convert(x)));
-			*/
-
+			await scheduleCellRepository.Clear();
+			await scheduleCellRepository.AddRangeAsync(schedules.First().ScheduleCells.Select(x => ScheduleCellConverter.Convert(x)));
+			
+/*
 			var rnd = new Random(1);
 			int Count = 5000;
 			int MaxWeight = 5000;
 			int[] Weights = Enumerable.Range(0, Count).Select(z => rnd.Next(MaxWeight)).ToArray();
 			if (Weights.Sum() % 2 != 0) Weights[0]++;
 
-			var ga = new GeneticAlgorithm<ArrayChromosome<bool>>(
-				() => new ArrayChromosome<bool>(Count)
-				, rnd);
+			var ga = new GeneticAlgorithm<ArrayChromosome<bool>>(() => new ArrayChromosome<bool>(Count), rnd);
 
 			Solutions.AppearenceCount.MinimalPoolSize(ga, 40);
 			Solutions.MutationOrigins.Random(ga, 0.5);
@@ -63,30 +61,23 @@ namespace ConsoleAppTest
 			ArrayChromosomeSolutions.Mutators.Bool(ga);
 			ArrayChromosomeSolutions.Crossover.Mix<ArrayChromosome<bool>, bool>(ga);
 				
-			ga.Evaluate += chromosome =>
+			ga.Evaluate = chromosome =>
 			{
 				chromosome.Value =
 					1.0 / (1 + Math.Abs(Enumerable.Range(0, Count).Sum(z => Weights[z] * (chromosome.Code[z] ? -1 : 1))));
 			};
 
-			while (true)
-			{				
-				var watch = new Stopwatch();
-				watch.Start();
+			for (var i = 0; i < 40; i++)
+			{
+				ga.MakeIteration();
 
-				while (watch.ElapsedMilliseconds < 200)
-				{
-					ga.MakeIteration();
-
-					Console.Clear();
-					Console.WriteLine($"Итерация: {ga.CurrentIteration}");
-					Console.WriteLine($"Среднее значение: {ga.Pool.Average(z => z.Value)}");
-					Console.WriteLine($"Максимальное значение: {ga.Pool.Max(z => z.Value)}");
-					Console.WriteLine($"Средний возраст: {ga.Pool.Average(z => z.Age)}");
-				}
-
-				watch.Stop();
+				Console.Clear();
+				Console.WriteLine($"Итерация: {ga.CurrentIteration}");
+				Console.WriteLine($"Среднее значение: {ga.Pool.Average(z => z.Value)}");
+				Console.WriteLine($"Максимальное значение: {ga.Pool.Max(z => z.Value)}");
+				Console.WriteLine($"Средний возраст: {ga.Pool.Average(z => z.Age)}");
 			}
+			*/
 
 			Console.ReadKey();
 		}
