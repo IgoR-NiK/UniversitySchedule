@@ -118,7 +118,7 @@ namespace DataLayer.ScheduleGenerations.Genetic
 				return new TimeslotChromosome[] { g };
 			};
 
-			GeneticAlgorithm.Evaluate += chromosome =>
+			GeneticAlgorithm.Evaluate = chromosome =>
 			{
 				var slot = teachingUnit.FreeTimeslots[chromosome.Code];
 				var cell = new ScheduleCell(slot.classroom, slot.periodTimeslot, teachingUnit);
