@@ -38,19 +38,24 @@ namespace ConsoleAppTest
 			var teachingUnits = (await teachingUnitRepository.GetEntityListAsync())
 				.Select(x => TeachingUnitConverter.Convert(x)).ToList();
 
-			var generation = new GeneticScheduleGeneration(15);
+			var generation = new GeneticScheduleGeneration(30);
 			var schedules = generation.Run(classrooms, periodTimeslots, teachingUnits);
 
 			var sum = 0;
+			var sum2 = 0;
 			schedules.ForEach(x =>
 			{
 				var f = Function1.Count(x);
+				var f2 = Function3.Count(x);
 				sum += f;
+				sum2 += f2;
 				Console.WriteLine($"Количество неутренних лекций: {f}");
+				Console.WriteLine($"Количество избыточных мест: {f2}");
+				Console.WriteLine($"-------------------------------------");
 			});
 
-			Console.WriteLine($"Всего ошибок: {sum}");
-
+			Console.WriteLine($"Всего ошибок (Лекции): {sum}");
+			Console.WriteLine($"Всего ошибок (Избыточные места): {sum2}");
 
 			await scheduleCellRepository.Clear();
 			await scheduleCellRepository.AddRangeAsync(schedules.First().ScheduleCells.Select(x => ScheduleCellConverter.Convert(x)));

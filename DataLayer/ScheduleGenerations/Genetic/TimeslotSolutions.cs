@@ -55,7 +55,7 @@ namespace DataLayer.ScheduleGenerations.Genetic
 
 		public static class Evaluation
 		{
-			static double[] Weights { get; } = new double[] { 1 };
+			static double[] Weights { get; } = new double[] { 1, 1, 1000000 };
 
 			public static void SetEvaluate<G>(GeneticAlgorithm<G> alg, TeachingUnit teachingUnit, Schedule schedule)
 				where G : TimeslotChromosome, IEquatable<G>
@@ -67,7 +67,9 @@ namespace DataLayer.ScheduleGenerations.Genetic
 
 					schedule.ScheduleCells.Add(cell);
 
-					chromosome.Value += Weights[0] * Function1.Value(schedule);		
+					chromosome.Value += Weights[0] * Function1.Value(schedule);
+					chromosome.Value += Weights[1] * Function2.Value(schedule);
+					chromosome.Value += Weights[2] * Function3.Value(schedule);
 
 					schedule.ScheduleCells.Remove(cell);
 				};
