@@ -12,6 +12,7 @@ using GeneticAlgorithms.Core;
 using GeneticAlgorithms.Common.Chromosomes;
 using GeneticAlgorithms.Common.Solutions;
 using DataLayer.ScheduleGenerations.Genetic;
+using DataLayer.ScheduleGenerations.Genetic.EvaluationFunctions;
 
 namespace ConsoleAppTest
 {
@@ -37,47 +38,58 @@ namespace ConsoleAppTest
 			var teachingUnits = (await teachingUnitRepository.GetEntityListAsync())
 				.Select(x => TeachingUnitConverter.Convert(x)).ToList();
 
-			var generation = new GeneticScheduleGeneration(10);
+			var generation = new GeneticScheduleGeneration(15);
 			var schedules = generation.Run(classrooms, periodTimeslots, teachingUnits);
+
+			var sum = 0;
+			schedules.ForEach(x =>
+			{
+				var f = Function1.Count(x);
+				sum += f;
+				Console.WriteLine($"Количество неутренних лекций: {f}");
+			});
+
+			Console.WriteLine($"Всего ошибок: {sum}");
+
 
 			await scheduleCellRepository.Clear();
 			await scheduleCellRepository.AddRangeAsync(schedules.First().ScheduleCells.Select(x => ScheduleCellConverter.Convert(x)));
-			
-/*
-			var rnd = new Random(1);
-			int Count = 5000;
-			int MaxWeight = 5000;
-			int[] Weights = Enumerable.Range(0, Count).Select(z => rnd.Next(MaxWeight)).ToArray();
-			if (Weights.Sum() % 2 != 0) Weights[0]++;
 
-			var ga = new GeneticAlgorithm<ArrayChromosome<bool>>(() => new ArrayChromosome<bool>(Count), rnd);
+			/*
+						var rnd = new Random(1);
+						int Count = 5000;
+						int MaxWeight = 5000;
+						int[] Weights = Enumerable.Range(0, Count).Select(z => rnd.Next(MaxWeight)).ToArray();
+						if (Weights.Sum() % 2 != 0) Weights[0]++;
 
-			Solutions.AppearenceCount.MinimalPoolSize(ga, 40);
-			Solutions.MutationOrigins.Random(ga, 0.5);
-			Solutions.CrossFamilies.Random(ga, 0.5);
-			Solutions.Selections.Threashold(ga, 40);
-					   
-			ArrayChromosomeSolutions.Appearences.Bool(ga);
-			ArrayChromosomeSolutions.Mutators.Bool(ga);
-			ArrayChromosomeSolutions.Crossover.Mix<ArrayChromosome<bool>, bool>(ga);
-				
-			ga.Evaluate = chromosome =>
-			{
-				chromosome.Value =
-					1.0 / (1 + Math.Abs(Enumerable.Range(0, Count).Sum(z => Weights[z] * (chromosome.Code[z] ? -1 : 1))));
-			};
+						var ga = new GeneticAlgorithm<ArrayChromosome<bool>>(() => new ArrayChromosome<bool>(Count), rnd);
 
-			for (var i = 0; i < 40; i++)
-			{
-				ga.MakeIteration();
+						Solutions.AppearenceCount.MinimalPoolSize(ga, 40);
+						Solutions.MutationOrigins.Random(ga, 0.5);
+						Solutions.CrossFamilies.Random(ga, 0.5);
+						Solutions.Selections.Threashold(ga, 40);
 
-				Console.Clear();
-				Console.WriteLine($"Итерация: {ga.CurrentIteration}");
-				Console.WriteLine($"Среднее значение: {ga.Pool.Average(z => z.Value)}");
-				Console.WriteLine($"Максимальное значение: {ga.Pool.Max(z => z.Value)}");
-				Console.WriteLine($"Средний возраст: {ga.Pool.Average(z => z.Age)}");
-			}
-			*/
+						ArrayChromosomeSolutions.Appearences.Bool(ga);
+						ArrayChromosomeSolutions.Mutators.Bool(ga);
+						ArrayChromosomeSolutions.Crossover.Mix<ArrayChromosome<bool>, bool>(ga);
+
+						ga.Evaluate = chromosome =>
+						{
+							chromosome.Value =
+								1.0 / (1 + Math.Abs(Enumerable.Range(0, Count).Sum(z => Weights[z] * (chromosome.Code[z] ? -1 : 1))));
+						};
+
+						for (var i = 0; i < 40; i++)
+						{
+							ga.MakeIteration();
+
+							Console.Clear();
+							Console.WriteLine($"Итерация: {ga.CurrentIteration}");
+							Console.WriteLine($"Среднее значение: {ga.Pool.Average(z => z.Value)}");
+							Console.WriteLine($"Максимальное значение: {ga.Pool.Max(z => z.Value)}");
+							Console.WriteLine($"Средний возраст: {ga.Pool.Average(z => z.Age)}");
+						}
+						*/
 
 			Console.ReadKey();
 		}

@@ -19,7 +19,7 @@ namespace DataLayer.ScheduleGenerations.Genetic
 		{
 			var rnd = new Random(1);
 			GeneticAlgorithm = new GeneticAlgorithm<TimeslotChromosome>(() => new TimeslotChromosome(), rnd);
-			CountIterations = 5;
+			CountIterations = 30;
 
 			Solutions.AppearenceCount.MinimalPoolSize(GeneticAlgorithm, 100);
 			Solutions.MutationOrigins.Random(GeneticAlgorithm, 0.5);
@@ -102,35 +102,12 @@ namespace DataLayer.ScheduleGenerations.Genetic
 		private (Classroom classroom, PeriodTimeslot periodTimeslot) GetFreeTimeslot(TeachingUnit teachingUnit, Schedule schedule)
 		{
 			GeneticAlgorithm.Refresh();
-			GeneticAlgorithm.PerformAppearence = () => new TimeslotChromosome() { Code = GeneticAlgorithm.Rnd.Next(teachingUnit.FreeTimeslots.Count) };
 
-			GeneticAlgorithm.PerformMutation = gen =>
-			{
-				var g = GeneticAlgorithm.CreateEmptyChromosome();
-				g.Code = (gen.Code * 17) % teachingUnit.FreeTimeslots.Count;
-				return new TimeslotChromosome[] { g };
-			};
-
-			GeneticAlgorithm.PerformCrossover = (gen1, gen2) =>
-			{
-				var g = GeneticAlgorithm.CreateEmptyChromosome();
-				g.Code = (gen1.Code + gen2.Code) / 2;
-				return new TimeslotChromosome[] { g };
-			};
-
-			GeneticAlgorithm.Evaluate = chromosome =>
-			{
-				var slot = teachingUnit.FreeTimeslots[chromosome.Code];
-				var cell = new ScheduleCell(slot.classroom, slot.periodTimeslot, teachingUnit);
-
-				schedule.ScheduleCells.Add(cell);
-
-				var n = schedule.ScheduleCells.Count(x => x.TeachingUnit.LessonTypeId == 1 && x.PeriodTimeslot.DayTimeslotId != 4);	
-				chromosome.Value = 1 / (1 + n);
-
-				schedule.ScheduleCells.Remove(cell);
-			};
-
+			TimeslotSolutions.Appearences.Random(GeneticAlgorithm, teachingUnit);
+			TimeslotSolutions.Mutators.Modulo(GeneticAlgorithm, teachingUnit);
+			TimeslotSolutions.Crossovers.HalfSum(GeneticAlgorithm);
+			TimeslotSolutions.Evaluation.SetEvaluate(GeneticAlgorithm, teachingUnit, schedule);
+			
 			for (var i = 0; i < CountIterations; i++)
 			{
 				GeneticAlgorithm.MakeIteration();

@@ -9,22 +9,27 @@ namespace GeneticAlgorithms.Common.Solutions
 {
 	public class ArrayChromosomeSolutions
 	{
-		public static class Crossover
+		public static class Appearences
 		{
-			public static void Mix<G, T>(GeneticAlgorithm<G> alg)
+			public static void ByElement<G, T>(GeneticAlgorithm<G> alg, Func<Random, T> elementGenerator)
 				where G : ArrayChromosome<T>, IEquatable<G>
 				where T : IEquatable<T>
 			{
-				alg.PerformCrossover = (g1, g2) =>
+				alg.PerformAppearence = () =>
 				{
 					var g = alg.CreateEmptyChromosome();
-					g.CheckLength(g1, g2);
-					g.SetCode(i => alg.Rnd.Next(2) == 0 ? g1.Code[i] : g2.Code[i]);
-					return new G[] { g };
+					g.SetCode(z => elementGenerator(alg.Rnd));
+					return g;
 				};
 			}
-		}
 
+			public static void Bool<G>(GeneticAlgorithm<G> a)
+				where G : ArrayChromosome<bool>, IEquatable<G>
+			{
+				ByElement(a, rnd => rnd.Next(2) == 0);
+			}
+		}
+		
 		public static class Mutators
 		{
 			public static void ByElement<G, T>(GeneticAlgorithm<G> alg, Func<T, T> elementMutation)
@@ -49,24 +54,19 @@ namespace GeneticAlgorithms.Common.Solutions
 			}
 		}
 
-		public static class Appearences
+		public static class Crossovers
 		{
-			public static void ByElement<G, T>(GeneticAlgorithm<G> alg, Func<Random, T> elementGenerator)
+			public static void Mix<G, T>(GeneticAlgorithm<G> alg)
 				where G : ArrayChromosome<T>, IEquatable<G>
 				where T : IEquatable<T>
 			{
-				alg.PerformAppearence = () =>
+				alg.PerformCrossover = (g1, g2) =>
 				{
 					var g = alg.CreateEmptyChromosome();
-					g.SetCode(z => elementGenerator(alg.Rnd));
-					return g;
+					g.CheckLength(g1, g2);
+					g.SetCode(i => alg.Rnd.Next(2) == 0 ? g1.Code[i] : g2.Code[i]);
+					return new G[] { g };
 				};
-			}
-
-			public static void Bool<G>(GeneticAlgorithm<G> a)
-				where G : ArrayChromosome<bool>, IEquatable<G>
-			{
-				ByElement(a, rnd => rnd.Next(2) == 0);
 			}
 		}
 	}
