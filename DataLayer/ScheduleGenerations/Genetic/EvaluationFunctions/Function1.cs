@@ -16,7 +16,8 @@ namespace DataLayer.ScheduleGenerations.Genetic.EvaluationFunctions
 
 		public static double Value(Schedule schedule)
 		{
-			return 1 / (1 + Count(schedule));
+			var value = 1.0 / (1 + Count(schedule));
+			return value;
 		}
 
 		/// <summary>
@@ -25,8 +26,9 @@ namespace DataLayer.ScheduleGenerations.Genetic.EvaluationFunctions
 		/// </summary>
 		public static int Count(Schedule schedule)
 		{
-			return schedule.ScheduleCells.Count(
+			var count = schedule.ScheduleCells.Count(
 				x => x.TeachingUnit.LessonTypeId == 1 && x.PeriodTimeslot.DayTimeslotId > K);
+			return count;
 		}
 	}
 }

@@ -16,17 +16,19 @@ namespace DataLayer.ScheduleGenerations.Genetic.EvaluationFunctions
 
 		public static double Value(Schedule schedule)
 		{
-			return 1 / (1 + Count(schedule));
+			var value = 1.0 / (1 + Count(schedule));
+			return value;
 		}
 
 		/// <summary>
 		/// Общее количество нелекционных занятий, которым запланирована "пара" с порядковым номером k (в пределах дня)
-		/// и k < K, где K - максимальный номер пары, которая ещё считается "утренней". 
+		/// и k <= K, где K - максимальный номер пары, которая ещё считается "утренней". 
 		/// </summary>
 		public static int Count(Schedule schedule)
 		{
-			return schedule.ScheduleCells.Count(
-				x => x.TeachingUnit.LessonTypeId != 1 && x.PeriodTimeslot.DayTimeslotId < K);
+			var count = schedule.ScheduleCells.Count(
+				x => x.TeachingUnit.LessonTypeId != 1 && x.PeriodTimeslot.DayTimeslotId <= K);
+			return count;
 		}
 	}
 }

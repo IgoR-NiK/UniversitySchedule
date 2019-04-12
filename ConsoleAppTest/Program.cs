@@ -38,7 +38,7 @@ namespace ConsoleAppTest
 			var teachingUnits = (await teachingUnitRepository.GetEntityListAsync())
 				.Select(x => TeachingUnitConverter.Convert(x)).ToList();
 
-			var generation = new GeneticScheduleGeneration(30);
+			var generation = new GeneticScheduleGeneration(10);
 			var schedules = generation.Run(classrooms, periodTimeslots, teachingUnits);
 
 			var sum = 0;
@@ -51,6 +51,7 @@ namespace ConsoleAppTest
 				sum2 += f2;
 				Console.WriteLine($"Количество неутренних лекций: {f}");
 				Console.WriteLine($"Количество избыточных мест: {f2}");
+				Console.WriteLine($"Оценка расписания: {EvaluationCalculation.Calculate(x)}");
 				Console.WriteLine($"-------------------------------------");
 			});
 
