@@ -284,7 +284,7 @@ namespace Repository
 
 			var group4 = new Group() { Id = 4, Name = "ФИТУ 2-1, 2-2", StudentsCount = 47, CoursesNumber = 1 };
 			var group5 = new Group() { Id = 5, Name = "ФИТУ 2-1", StudentsCount = 20, CoursesNumber = 2, ParentGroupId = 4, DepartmentId = department1.Id };
-			var group6 = new Group() { Id = 6, Name = "ФИТУ 2-2", StudentsCount = 27, CoursesNumber = 2, ParentGroupId = 5, DepartmentId = department2.Id };
+			var group6 = new Group() { Id = 6, Name = "ФИТУ 2-2", StudentsCount = 27, CoursesNumber = 2, ParentGroupId = 4, DepartmentId = department2.Id };
 
 			var group7 = new Group() { Id = 7, Name = "ФИТУ 3-1, 3-2", StudentsCount = 47, CoursesNumber = 1 };
 			var group8 = new Group() { Id = 8, Name = "ФИТУ 3-1", StudentsCount = 20, CoursesNumber = 3, ParentGroupId = 7, DepartmentId = department1.Id };

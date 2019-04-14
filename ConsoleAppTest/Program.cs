@@ -43,60 +43,42 @@ namespace ConsoleAppTest
 
 			var sum = 0;
 			var sum2 = 0;
+			var sum3 = 0;
+			var sum4 = 0;
+			var sum5 = 0;
+			var sum6 = 0;
 			schedules.ForEach(x =>
 			{
 				var f = Function1.Count(x);
 				var f2 = Function3.Count(x);
+				var f3 = Function4.Count(x);
+				var f4 = Function5.Count(x);
+				var f5 = Function6.Count(x);
+				var f6 = Function7.Count(x);
 				sum += f;
 				sum2 += f2;
+				sum3 += f3;
+				sum4 += f4;
+				sum5 += f5;
+				sum6 += f6;
 				Console.WriteLine($"Количество неутренних лекций: {f}");
 				Console.WriteLine($"Количество избыточных мест: {f2}");
+				Console.WriteLine($"Количество превышений пар в день для преподавателей: {f3}");
+
+				Console.WriteLine($"Количество превышений пар в день для студентов: {f5}");
 				Console.WriteLine($"Оценка расписания: {EvaluationCalculation.Calculate(x)}");
 				Console.WriteLine($"-------------------------------------");
 			});
 
 			Console.WriteLine($"Всего ошибок (Лекции): {sum}");
 			Console.WriteLine($"Всего ошибок (Избыточные места): {sum2}");
+			Console.WriteLine($"Всего ошибок (Количество превышений пар в день для преподавателей): {sum3}");
+
+			Console.WriteLine($"Всего ошибок (Количество превышений пар в день для студентов): {sum5}");
 
 			await scheduleCellRepository.Clear();
 			await scheduleCellRepository.AddRangeAsync(schedules.First().ScheduleCells.Select(x => ScheduleCellConverter.Convert(x)));
-
-			/*
-						var rnd = new Random(1);
-						int Count = 5000;
-						int MaxWeight = 5000;
-						int[] Weights = Enumerable.Range(0, Count).Select(z => rnd.Next(MaxWeight)).ToArray();
-						if (Weights.Sum() % 2 != 0) Weights[0]++;
-
-						var ga = new GeneticAlgorithm<ArrayChromosome<bool>>(() => new ArrayChromosome<bool>(Count), rnd);
-
-						Solutions.AppearenceCount.MinimalPoolSize(ga, 40);
-						Solutions.MutationOrigins.Random(ga, 0.5);
-						Solutions.CrossFamilies.Random(ga, 0.5);
-						Solutions.Selections.Threashold(ga, 40);
-
-						ArrayChromosomeSolutions.Appearences.Bool(ga);
-						ArrayChromosomeSolutions.Mutators.Bool(ga);
-						ArrayChromosomeSolutions.Crossover.Mix<ArrayChromosome<bool>, bool>(ga);
-
-						ga.Evaluate = chromosome =>
-						{
-							chromosome.Value =
-								1.0 / (1 + Math.Abs(Enumerable.Range(0, Count).Sum(z => Weights[z] * (chromosome.Code[z] ? -1 : 1))));
-						};
-
-						for (var i = 0; i < 40; i++)
-						{
-							ga.MakeIteration();
-
-							Console.Clear();
-							Console.WriteLine($"Итерация: {ga.CurrentIteration}");
-							Console.WriteLine($"Среднее значение: {ga.Pool.Average(z => z.Value)}");
-							Console.WriteLine($"Максимальное значение: {ga.Pool.Max(z => z.Value)}");
-							Console.WriteLine($"Средний возраст: {ga.Pool.Average(z => z.Age)}");
-						}
-						*/
-
+			
 			Console.ReadKey();
 		}
 	}
