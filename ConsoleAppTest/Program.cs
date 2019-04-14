@@ -41,6 +41,7 @@ namespace ConsoleAppTest
 			var generation = new GeneticScheduleGeneration(10);
 			var schedules = generation.Run(classrooms, periodTimeslots, teachingUnits);
 
+			var i = 1;
 			var sum = 0;
 			var sum2 = 0;
 			var sum3 = 0;
@@ -61,11 +62,13 @@ namespace ConsoleAppTest
 				sum4 += f4;
 				sum5 += f5;
 				sum6 += f6;
+				Console.WriteLine($"Расписание {i++}");
 				Console.WriteLine($"Количество неутренних лекций: {f}");
 				Console.WriteLine($"Количество избыточных мест: {f2}");
 				Console.WriteLine($"Количество превышений пар в день для преподавателей: {f3}");
-
+				Console.WriteLine($"Количество окон для преподавателей: {f4}");
 				Console.WriteLine($"Количество превышений пар в день для студентов: {f5}");
+				Console.WriteLine($"Количество окон для студентов: {f6}");
 				Console.WriteLine($"Оценка расписания: {EvaluationCalculation.Calculate(x)}");
 				Console.WriteLine($"-------------------------------------");
 			});
@@ -73,8 +76,9 @@ namespace ConsoleAppTest
 			Console.WriteLine($"Всего ошибок (Лекции): {sum}");
 			Console.WriteLine($"Всего ошибок (Избыточные места): {sum2}");
 			Console.WriteLine($"Всего ошибок (Количество превышений пар в день для преподавателей): {sum3}");
-
+			Console.WriteLine($"Всего ошибок (Количество окон для преподавателей): {sum4}");
 			Console.WriteLine($"Всего ошибок (Количество превышений пар в день для студентов): {sum5}");
+			Console.WriteLine($"Всего ошибок (Количество окон для студентов): {sum6}");
 
 			await scheduleCellRepository.Clear();
 			await scheduleCellRepository.AddRangeAsync(schedules.First().ScheduleCells.Select(x => ScheduleCellConverter.Convert(x)));

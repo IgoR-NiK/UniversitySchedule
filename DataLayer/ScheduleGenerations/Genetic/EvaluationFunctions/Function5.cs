@@ -24,7 +24,20 @@ namespace DataLayer.ScheduleGenerations.Genetic.EvaluationFunctions
 		/// </summary>
 		public static int Count(Schedule schedule)
 		{
+			var teachers = schedule.ScheduleCells.GroupBy(x => x.TeachingUnit.TeacherId);
+
 			var count = 0;
+			foreach (var teacher in teachers)
+			{
+				var days = teacher.GroupBy(x => (x.PeriodTimeslot.WeekId, x.PeriodTimeslot.DayId));
+				foreach (var day in days)
+				{
+					var cells = day.OrderBy(x => x.PeriodTimeslot.DayTimeslotId);
+					var o = cells.Last().PeriodTimeslot.DayTimeslotId - cells.First().PeriodTimeslot.DayTimeslotId - day.Count() + 1;
+					count += o;
+				}
+			}
+
 			return count;
 		}
 	}

@@ -35,7 +35,7 @@ namespace DataLayer.ScheduleGenerations.Genetic
 			{
 				RemoveEqualGenes = false
 			};
-			CountIterationsGlobalGA = 50;
+			CountIterationsGlobalGA = 200;
 
 			Solutions.AppearenceCount.MinimalPoolSize(GlobalGA, 30);
 			Solutions.MutationOrigins.Random(GlobalGA, 0.5);

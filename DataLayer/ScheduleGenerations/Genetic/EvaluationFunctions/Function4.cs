@@ -30,10 +30,10 @@ namespace DataLayer.ScheduleGenerations.Genetic.EvaluationFunctions
 			var teachers = schedule.ScheduleCells.GroupBy(x => x.TeachingUnit.TeacherId);
 
 			var count = 0;
-			foreach(var teacher in teachers)
+			foreach (var teacher in teachers)
 			{
 				var days = teacher.GroupBy(x => (x.PeriodTimeslot.WeekId, x.PeriodTimeslot.DayId));
-				foreach(var day in days)
+				foreach (var day in days)
 				{
 					count += Math.Max(day.Count() - K, 0);
 				}
