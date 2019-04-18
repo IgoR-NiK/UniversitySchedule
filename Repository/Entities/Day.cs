@@ -16,6 +16,8 @@ namespace Repository.Entities
 		[StringLength(50)]
 		public string Name { get; set; }
 
+		public int DayOfWeek { get; set; }
+
 		public ICollection<PeriodTimeslot> PeriodTimeslots { get; set; } = new List<PeriodTimeslot>();
 	}
 }

@@ -9,7 +9,7 @@
 		<span> ➞ </span>
 		<span><router-link v-bind:to="{ path: `/faculties/${facultyId}/courses/${courseNumber}/groups` }"> {{ groupName }} </router-link></span>
 
-
+		{{ test }}
 	</div>
 </template>
 
@@ -21,7 +21,9 @@
 				facultyName: '',
 				courseNumber: this.$route.params.courseNumber,
 				groupId: this.$route.params.groupId,
-				groupName: ''				
+				groupName: '',
+
+				test: ''
 			}
 		},
 		components: {
@@ -35,6 +37,14 @@
 			axios
 				.get(`/api/groups/${this.groupId}`)
 				.then(response => this.groupName = response.data.name);
+
+			//axios
+			//	.get(`/api/schedules/GetScheduleForGroup?groupId=${this.groupId}`)
+			//	.then(response => this.test = response.data);
+
+			axios
+				.get(`/api/schedules/GetScheduleForTeacher?teacherId=4`)
+				.then(response => this.test = response.data);
 		}
 	};
 </script>

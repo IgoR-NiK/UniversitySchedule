@@ -16,7 +16,8 @@ namespace DataLayer.Converters
 			return new Day()
 			{
 				Id = dbDay.Id,
-				Name = dbDay.Name
+				Name = dbDay.Name,
+				DayOfWeek = dbDay.DayOfWeek
 			};
 		}
 
@@ -27,7 +28,8 @@ namespace DataLayer.Converters
 			return new DbDay()
 			{
 				Id = day.Id,
-				Name = day.Name
+				Name = day.Name,
+				DayOfWeek = day.DayOfWeek
 			};
 		}
 	}

@@ -43,6 +43,7 @@ namespace UniversitySchedule
 			services.AddTransient<IGroupRepository, MsSqlGroupRepository>();
 			services.AddTransient<IUserRepository, MsSqlUserRepository>();
 			services.AddTransient<IWebPageRepository, MsSqlWebPageRepository>();
+			services.AddTransient<IScheduleRepository, MsSqlScheduleRepository>();
 
 			services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 					.AddJwtBearer(options =>

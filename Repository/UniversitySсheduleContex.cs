@@ -168,10 +168,10 @@ namespace Repository
 
 			#region Дни недели
 
-			var day1 = new Day() { Id = 1, Name = "Понедельник" };
-			var day2 = new Day() { Id = 2, Name = "Вторник" };
-			var day3 = new Day() { Id = 3, Name = "Четверг" };
-			var day4 = new Day() { Id = 4, Name = "Пятница" };
+			var day1 = new Day() { Id = 1, Name = "Понедельник", DayOfWeek = 1 };
+			var day2 = new Day() { Id = 2, Name = "Вторник", DayOfWeek = 2 };
+			var day3 = new Day() { Id = 3, Name = "Четверг", DayOfWeek = 4 };
+			var day4 = new Day() { Id = 4, Name = "Пятница", DayOfWeek = 5 };
 
 			modelBuilder.Entity<Day>().HasData(day1, day2, day3, day4);
 
