@@ -15,10 +15,17 @@ namespace UniversitySchedule.Controllers
     public class SchedulesController : ControllerBase
     {
 		IScheduleRepository ScheduleRepository { get; }
+		IPeriodTimeslotRepository PeriodTimeslotRepository { get; }
+		IClassroomRepository ClassroomRepository { get; }
 
-		public SchedulesController(IScheduleRepository scheduleRepository)
+		public SchedulesController(
+			IScheduleRepository scheduleRepository,
+			IPeriodTimeslotRepository periodTimeslotRepository,
+			IClassroomRepository classroomRepository)
 		{
 			ScheduleRepository = scheduleRepository;
+			PeriodTimeslotRepository = periodTimeslotRepository;
+			ClassroomRepository = classroomRepository;
 		}
 
 
@@ -38,6 +45,25 @@ namespace UniversitySchedule.Controllers
 			var periodTimeslots = await ScheduleRepository.GetScheduleForTeacherAsync(teacherId);
 			var weeks = ScheduleConverter.Convert(periodTimeslots);
 			return new OkObjectResult(weeks);
+		}
+
+		[HttpGet]
+		[Route("GetScheduleGrid")]
+		public async Task<IActionResult> GetScheduleGrid()
+		{
+			var periodTimeslots = await PeriodTimeslotRepository.GetEntityListAsync();
+			var weeks = ScheduleConverter.Convert(periodTimeslots);
+
+			var classrooms = await ClassroomRepository.GetEntityListAsync();
+			var buildings  = ScheduleConverter.Convert(classrooms);
+
+
+
+
+
+
+
+			return new OkObjectResult(buildings);
 		}
 	}
 }

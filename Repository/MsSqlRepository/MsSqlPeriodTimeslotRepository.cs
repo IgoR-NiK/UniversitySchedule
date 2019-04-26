@@ -52,6 +52,7 @@ namespace Repository.MsSqlRepository
 								.Include(x => x.Week)
 								.Include(x => x.Day)
 								.Include(x => x.DayTimeslot)
+								.OrderBy(x => x.Id)
 								.ToList();
 				}
 

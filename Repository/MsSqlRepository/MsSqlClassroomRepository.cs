@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -51,6 +52,7 @@ namespace Repository.MsSqlRepository
 								.Include(x => x.ClassroomType)
 								.Include(x => x.BanClassroomPeriodTimeslots)
 									.ThenInclude(x => x.PeriodTimeslot)
+								.OrderBy(x => x.Id)
 								.ToListAsync();
 				}
 

@@ -19,7 +19,7 @@
 			return {
 				items: [
 					{
-						name: 'Аудитории',
+						name: 'Сетка расписания',
 						path: '/administration/classrooms'
 					},
 					{

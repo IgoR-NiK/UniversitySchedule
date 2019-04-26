@@ -6,6 +6,7 @@ namespace DataLayer.Models.Response
 {
 	public class DayTimeslotResponse
 	{
+		public int Id { get; set; }
 		public int Number { get; set; }
 		public string StartTime { get; set; }
 		public string EndTime { get; set; }

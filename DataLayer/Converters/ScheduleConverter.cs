@@ -15,12 +15,12 @@ namespace DataLayer.Converters
 			var weeks = new List<WeekResponse>();
 
 			var dbWeeks = periodTimeslots.GroupBy(x => x.Week, new WeekComparer());
-			foreach(var dbWeek in dbWeeks)
+			foreach(var dbWeek in dbWeeks.OrderBy(x => x.Key.Id))
 			{
 				var days = new List<DayResponse>();
 
 				var dbDays = dbWeek.GroupBy(x => x.Day, new DayComparer());
-				foreach (var dbDay in dbDays)
+				foreach (var dbDay in dbDays.OrderBy(x => x.Key.Id))
 				{
 					var dayTimeslots = new List<DayTimeslotResponse>();
 
@@ -37,6 +37,7 @@ namespace DataLayer.Converters
 
 						dayTimeslots.Add(new DayTimeslotResponse()
 						{
+							Id = periodTimeslot.Id,
 							Number = periodTimeslot.DayTimeslot.Id,
 							StartTime = periodTimeslot.DayTimeslot.StartTime.ToShortTimeString(),
 							EndTime = periodTimeslot.DayTimeslot.StartTime.AddMinutes(90).ToShortTimeString(),
@@ -59,6 +60,32 @@ namespace DataLayer.Converters
 			}
 
 			return weeks;
+		}
+
+		public static List<BuildingResponse> Convert(List<Classroom> classrooms)
+		{
+			var buildings = new List<BuildingResponse>();
+
+			var dbBuildings = classrooms.GroupBy(x => x.Building, new BuildingComparer());
+			foreach (var dbBuilding in dbBuildings.OrderBy(x => x.Key.Id))
+			{
+				var rooms = new List<ClassroomResponse>();
+
+				foreach (var room in dbBuilding.Key.Classrooms.OrderBy(x => x.Id))
+				{
+					rooms.Add(new ClassroomResponse()
+					{
+						Id = room.Id,
+						Name = room.Name,
+						Capacity = room.Capacity,
+						ClassroomTypeName = room.ClassroomType.Name
+					});
+				}
+
+				buildings.Add(new BuildingResponse() { Name = dbBuilding.Key.Name, ClassroomsResponse = rooms });
+			}
+
+			return buildings;
 		}
 	}
 
@@ -83,6 +110,19 @@ namespace DataLayer.Converters
 		}
 
 		public int GetHashCode(Day obj)
+		{
+			return obj.Id.GetHashCode();
+		}
+	}
+
+	class BuildingComparer : IEqualityComparer<Building>
+	{
+		public bool Equals(Building x, Building y)
+		{
+			return x.Id == y.Id;
+		}
+
+		public int GetHashCode(Building obj)
 		{
 			return obj.Id.GetHashCode();
 		}

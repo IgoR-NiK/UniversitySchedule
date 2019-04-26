@@ -7,6 +7,7 @@
 		<span> ➞ </span>
 		<span> {{ name }} </span>
 
+		{{ test }}
 
 	</div>
 </template>
@@ -15,11 +16,17 @@
 	module.exports = {
 		data: function () {
 			return {
-				name: 'Аудитории'
+				name: 'Сетка расписания',
+				test: []
 			}
 		},
 		components: {
 			'h1-title': httpVueLoader('/js/components/common/h1-title.vue'),
+		},
+		created: function () {
+			axios
+				.get(`/api/schedules/GetScheduleGrid`)
+				.then(response => this.test = response.data);
 		}
 	};
 </script>
@@ -32,4 +39,6 @@
 	a {
 		text-decoration: none;
 	}
+
+
 </style>
