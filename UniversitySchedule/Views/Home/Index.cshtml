@@ -88,6 +88,10 @@
 					component: httpVueLoader('/js/components/administration/administration-component.vue'),
 					beforeEnter: ifAuthenticated
 				}, {
+					path: '/administration/classrooms',
+					component: httpVueLoader('/js/components/administration/edit-classrooms-component.vue'),
+					beforeEnter: ifAuthenticated
+				}, {
 					path: '/administration/faculties',
 					component: httpVueLoader('/js/components/administration/edit-faculties-component.vue'),
 					beforeEnter: ifAuthenticated

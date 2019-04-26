@@ -300,10 +300,10 @@ namespace Repository
 
 			#region Должности преподавателей
 
-			var post1 = new Post() { Id = 11, Name = "Ассистент" };
-			var post2 = new Post() { Id = 2, Name = "Cтарший преподаватель" };
-			var post3 = new Post() { Id = 3, Name = "Доцент" };
-			var post4 = new Post() { Id = 4, Name = "Профессор" };
+			var post1 = new Post() { Id = 1, Name = "Ассистент", Description = "асс. каф. ПОВТ" };
+			var post2 = new Post() { Id = 2, Name = "Cтарший преподаватель", Description = "ст. преп. каф. ПОВТ" };
+			var post3 = new Post() { Id = 3, Name = "Доцент", Description = "доц. каф. ПОВТ" };
+			var post4 = new Post() { Id = 4, Name = "Профессор", Description = "проф. каф. ПОВТ" };
 
 			modelBuilder.Entity<Post>().HasData(post1, post2, post3, post4);
 

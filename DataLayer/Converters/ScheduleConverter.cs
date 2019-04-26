@@ -31,7 +31,9 @@ namespace DataLayer.Converters
 						var teacher = scheduleCell?.TeachingUnit.Teacher;
 						var teacherName = teacher == null
 							? null
-							: $"{teacher.SecondName} {teacher.FirstName} {teacher.MiddleName}";
+							: $"{teacher.SecondName} {teacher.FirstName.Substring(0, 1)}. {teacher.MiddleName?.Substring(0, 1)}.";
+
+						var lessonType = scheduleCell?.TeachingUnit.LessonType;
 
 						dayTimeslots.Add(new DayTimeslotResponse()
 						{
@@ -39,18 +41,18 @@ namespace DataLayer.Converters
 							StartTime = periodTimeslot.DayTimeslot.StartTime.ToShortTimeString(),
 							EndTime = periodTimeslot.DayTimeslot.StartTime.AddMinutes(90).ToShortTimeString(),
 							CourseName = scheduleCell?.TeachingUnit.Course.Name,
-							LessonType = LessonTypeConverter.Convert(scheduleCell?.TeachingUnit.LessonType),
+							LessonTypeName = lessonType == null ? null : $"({lessonType.Name})",
 							Classroom = scheduleCell?.Classroom.Name,
 							GroupName = scheduleCell?.TeachingUnit.Group.Name,
-							TeacherName = teacherName
+							TeacherName = teacherName,
+							TeacherPost = teacher == null ? null : $"({teacher.Post.Description})"
 						});
 					}
 
-					var difference = (int)DateTime.Now.DayOfWeek - dbDay.Key.DayOfWeek;
-					if (difference < 0) difference += 7;
+					var difference = (int)DateTime.Now.DayOfWeek - dbDay.Key.DayOfWeek;					
 					var calcDate = DateTime.Now.AddDays(-difference);
 
-					days.Add(new DayResponse() { Name = dbDay.Key.Name, Date = calcDate.ToShortDateString(), DayTimeslotsResponse = dayTimeslots });
+					days.Add(new DayResponse() { Name = dbDay.Key.Name, Date = $"{calcDate:M}", DayTimeslotsResponse = dayTimeslots });
 				}
 
 				weeks.Add(new WeekResponse() { Name = dbWeek.Key.Name, DaysResponse = days });

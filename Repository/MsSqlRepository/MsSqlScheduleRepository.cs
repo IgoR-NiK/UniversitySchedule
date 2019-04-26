@@ -71,6 +71,7 @@ namespace Repository.MsSqlRepository
 																.ThenInclude(x => x.Group)
 															.Include(x => x.TeachingUnit)
 																.ThenInclude(x => x.Teacher)
+																.ThenInclude(x => x.Post)
 															.Where(x => x.TeachingUnit.GroupId == groupId ||
 																		x.TeachingUnit.GroupId == parentGroupId)
 															.ToList(),
@@ -106,6 +107,7 @@ namespace Repository.MsSqlRepository
 																.ThenInclude(x => x.Group)
 															.Include(x => x.TeachingUnit)
 																.ThenInclude(x => x.Teacher)
+																.ThenInclude(x => x.Post)
 															.Where(x => x.TeachingUnit.TeacherId == teacherId)
 															.ToList(),
 														pt => pt.Id,

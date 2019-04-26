@@ -64,7 +64,7 @@
 	}
 
 		a.list-item:hover {
-			background-color: #ffffd9;
+			background: linear-gradient(to top, #deedf7, #f2f8fc);
 		}
 
 			a.list-item:hover h4 {
