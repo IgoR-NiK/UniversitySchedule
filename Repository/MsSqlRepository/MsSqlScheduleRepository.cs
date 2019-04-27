@@ -15,12 +15,12 @@ namespace Repository.MsSqlRepository
 		public MsSqlScheduleRepository(ConnectionOptions options) 
 			: base(options) { }
 
-		public Task<PeriodTimeslot> AddAsync(PeriodTimeslot item)
+		public Task<ScheduleCell> AddAsync(ScheduleCell item)
 		{
 			throw new NotImplementedException();
 		}
 
-		public Task AddRangeAsync(IEnumerable<PeriodTimeslot> items)
+		public Task AddRangeAsync(IEnumerable<ScheduleCell> items)
 		{
 			throw new NotImplementedException();
 		}
@@ -35,14 +35,34 @@ namespace Repository.MsSqlRepository
 			throw new NotImplementedException();
 		}
 
-		public Task<PeriodTimeslot> GetEntityAsync(int id)
+		public Task<ScheduleCell> GetEntityAsync(int id)
 		{
 			throw new NotImplementedException();
 		}
 
-		public Task<List<PeriodTimeslot>> GetEntityListAsync()
+		public Task<List<ScheduleCell>> GetEntityListAsync()
 		{
-			throw new NotImplementedException();
+			return Task.Run(() =>
+			{
+				var scheduleCells = new List<ScheduleCell>();
+
+				using (var dbContext = GetDbContext())
+				{
+					scheduleCells = dbContext.ScheduleCells
+										.Include(x => x.TeachingUnit)
+											.ThenInclude(x => x.Course)
+										.Include(x => x.TeachingUnit)
+											.ThenInclude(x => x.LessonType)
+										.Include(x => x.TeachingUnit)
+											.ThenInclude(x => x.Group)
+										.Include(x => x.TeachingUnit)
+											.ThenInclude(x => x.Teacher)
+											.ThenInclude(x => x.Post)
+										.ToList();
+				}
+
+				return scheduleCells;
+			});
 		}
 
 		public Task<List<PeriodTimeslot>> GetScheduleForGroupAsync(int groupId)
@@ -120,7 +140,7 @@ namespace Repository.MsSqlRepository
 			});
 		}
 
-		public Task<PeriodTimeslot> UpdateAsync(PeriodTimeslot item)
+		public Task<ScheduleCell> UpdateAsync(ScheduleCell item)
 		{
 			throw new NotImplementedException();
 		}

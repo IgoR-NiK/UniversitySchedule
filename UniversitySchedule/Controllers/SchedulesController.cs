@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 using DataLayer.Converters;
+using DataLayer.Models.Response;
+using DataLayer.Models.Enums;
 using Repository.Interfaces;
 
 namespace UniversitySchedule.Controllers
@@ -57,13 +59,67 @@ namespace UniversitySchedule.Controllers
 			var classrooms = await ClassroomRepository.GetEntityListAsync();
 			var buildings  = ScheduleConverter.Convert(classrooms);
 
+			var schedule = await ScheduleRepository.GetEntityListAsync();
+
+			var cells = new List<List<ScheduleCellResponse>>();
+
+			foreach(var building in buildings)
+			{
+				foreach(var room in building.ClassroomsResponse)
+				{
+					var row = new List<ScheduleCellResponse>();
+
+					foreach (var week in weeks)
+					{
+						foreach (var day in week.DaysResponse)
+						{
+							foreach(var dayTimeslot in day.DayTimeslotsResponse)
+							{
+								var cell = new ScheduleCellResponse();
+
+								var isBlocked = classrooms
+									.FirstOrDefault(c => c.Id == room.Id)
+									?.BanClassroomPeriodTimeslots
+									.Any(b => b.PeriodTimeslotId == dayTimeslot.Id) ?? false;
+
+								if (isBlocked)
+									cell.CellType = CellType.Blocked;
 
 
+								var teachingUnit = schedule
+									.FirstOrDefault(s => s.ClassroomId == room.Id && s.PeriodTimeslotId == dayTimeslot.Id)
+									?.TeachingUnit;
 
+								if (teachingUnit != null)
+								{
+									cell.GroupName = $"{teachingUnit.Group.Name} ({teachingUnit.Group.StudentsCount} чел.)";
+									cell.CourseName = teachingUnit.Course.Name;
+									cell.LessonTypeName = $"{teachingUnit.LessonType.Name}";
+									cell.TeacherName = $"{teachingUnit.Teacher.SecondName} {teachingUnit.Teacher.FirstName.Substring(0, 1)}. {teachingUnit.Teacher.MiddleName?.Substring(0, 1)}.";
+									cell.TeacherPost = $"({teachingUnit.Teacher.Post.Description})";
 
+									cell.CellType =
+										teachingUnit.LessonTypeId == 1 ? CellType.Lecture :
+										teachingUnit.LessonTypeId == 2 ? CellType.Practice :
+										teachingUnit.LessonTypeId == 3 ? CellType.LaboratoryWork : 
+										CellType.Empty;
+								}
 
+								row.Add(cell);
+							}
+						}
+					}
 
-			return new OkObjectResult(buildings);
+					cells.Add(row);
+				}
+			}
+
+			return new OkObjectResult(new GridResponse()
+			{
+				Weeks = weeks,
+				Buildings = buildings,
+				Cells = cells
+			});
 		}
 	}
 }
