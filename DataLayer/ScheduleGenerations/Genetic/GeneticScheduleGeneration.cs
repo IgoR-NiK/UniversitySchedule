@@ -17,36 +17,35 @@ namespace DataLayer.ScheduleGenerations.Genetic
 		public int CountIterationsLocalGA { get; private set; }
 		public int CountIterationsGlobalGA { get; private set; }
 		
-		public GeneticScheduleGeneration(int countSchedules) 
+		public GeneticScheduleGeneration(int countSchedules, int teachingUnitsCount) 
 			: base(countSchedules)
 		{
 			LocalGA = new GeneticAlgorithm<TimeslotChromosome>(() => new TimeslotChromosome());
+			GlobalGA = new GeneticAlgorithm<PermutationChromosome>(() => new PermutationChromosome(teachingUnitsCount))
+			{
+				RemoveEqualGenes = false
+			};
+
 			CountIterationsLocalGA = 10;
+			CountIterationsGlobalGA = 100;
 
 			Solutions.AppearenceCount.MinimalPoolSize(LocalGA, 30);
 			Solutions.MutationOrigins.Random(LocalGA, 0.5);
 			Solutions.CrossFamilies.Random(LocalGA, 0.5);
-			Solutions.Selections.Threashold(LocalGA, 10);	
-		}
-
-		public override List<Schedule> Run(List<Classroom> classrooms, List<PeriodTimeslot> periodTimeslots, List<TeachingUnit> teachingUnits)
-		{
-			GlobalGA = new GeneticAlgorithm<PermutationChromosome>(() => new PermutationChromosome(teachingUnits.Count))
-			{
-				RemoveEqualGenes = false
-			};
-			CountIterationsGlobalGA = 100;
+			Solutions.Selections.Threashold(LocalGA, 10);
 
 			Solutions.AppearenceCount.MinimalPoolSize(GlobalGA, 30);
 			Solutions.MutationOrigins.Random(GlobalGA, 0.5);
 			Solutions.CrossFamilies.Random(GlobalGA, 0.5);
 			Solutions.Selections.Threashold(GlobalGA, 10);
-						
+
 			PermutationSolutions.Appearences.Shuffle(GlobalGA);
 			PermutationSolutions.Mutators.Swap(GlobalGA);
 			PermutationSolutions.Crossovers.Сomposition(GlobalGA);
-			
+		}
 
+		public override List<Schedule> Run(List<Classroom> classrooms, List<PeriodTimeslot> periodTimeslots, List<TeachingUnit> teachingUnits)
+		{
 			var freeTimeslots = GetFreeTimeslots(classrooms, periodTimeslots);
 
 			GlobalGA.Evaluate = chromosome =>

@@ -16,6 +16,7 @@ using Repository;
 using Repository.Interfaces;
 using Repository.MsSqlRepository;
 using UniversitySchedule.Authentication;
+using UniversitySchedule.Hubs;
 
 namespace UniversitySchedule
 {
@@ -46,6 +47,8 @@ namespace UniversitySchedule
 			services.AddTransient<IScheduleRepository, MsSqlScheduleRepository>();
 			services.AddTransient<IPeriodTimeslotRepository, MsSqlPeriodTimeslotRepository>();
 			services.AddTransient<IClassroomRepository, MsSqlClassroomRepository>();
+			services.AddTransient<ITeachingUnitRepository, MsSqlTeachingUnitRepository>();
+			services.AddTransient<IScheduleCellRepository, MsSqlScheduleCellRepository>();
 
 			services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 					.AddJwtBearer(options =>
@@ -68,6 +71,7 @@ namespace UniversitySchedule
 					});
 
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+			services.AddSignalR();
 		}
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -95,7 +99,12 @@ namespace UniversitySchedule
             });
             app.UseCookiePolicy();
 
-            app.UseMvc(routes =>
+			app.UseSignalR(routes =>
+			{
+				routes.MapHub<ScheduleHub>("/schedule");
+			});
+
+			app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",

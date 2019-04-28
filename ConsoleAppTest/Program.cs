@@ -38,7 +38,7 @@ namespace ConsoleAppTest
 			var teachingUnits = (await teachingUnitRepository.GetEntityListAsync())
 				.Select(x => TeachingUnitConverter.Convert(x)).ToList();
 
-			var generation = new GeneticScheduleGeneration(10);
+			var generation = new GeneticScheduleGeneration(10, teachingUnits.Count);
 			var schedules = generation.Run(classrooms, periodTimeslots, teachingUnits);
 
 			var i = 1;
