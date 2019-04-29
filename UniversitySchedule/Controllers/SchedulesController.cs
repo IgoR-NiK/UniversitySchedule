@@ -12,6 +12,7 @@ using Repository.Interfaces;
 using DataLayer.ScheduleGenerations.Genetic;
 using UniversitySchedule.Hubs;
 using Microsoft.AspNetCore.SignalR;
+using DataLayer.ScheduleGenerations.Genetic.EvaluationFunctions;
 
 namespace UniversitySchedule.Controllers
 {
@@ -157,11 +158,22 @@ namespace UniversitySchedule.Controllers
 
 			generation.GlobalGA.IterationCompleted += async () =>
 			{
+				var bestChromosome = generation.GlobalGA.ChromosomePool.First();
+
 				await HubContext.Clients.All.SendAsync("SendScheduleInfo", new ScheduleInfo()
-				{
-					MaxValue = generation.GlobalGA.Pool.Max(x => x.Value),
+				{	
+					MaxValue = bestChromosome.Value,
 					AverageValue = generation.GlobalGA.Pool.Average(x => x.Value),
-					AverageAge = generation.GlobalGA.Pool.Average(x => x.Age)
+					AverageAge = generation.GlobalGA.Pool.Average(x => x.Age),
+					Evaluations =
+					{
+						Function1.Count(bestChromosome.Schedule),
+						Function3.Count(bestChromosome.Schedule),
+						Function4.Count(bestChromosome.Schedule),
+						Function5.Count(bestChromosome.Schedule),
+						Function6.Count(bestChromosome.Schedule),
+						Function7.Count(bestChromosome.Schedule)
+					}
 				});
 			};
 

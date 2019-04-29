@@ -66,7 +66,14 @@
 		<div id="age-chart"></div>
 
 		<h1-title>Информация о расписании</h1-title>
-
+		<div class="evaluation-info">
+			<div v-for="evaluation in evaluations"
+				 v-bind:class="[{ green : evaluation.currentValue <= evaluation.bestValue }, { red: evaluation.currentValue > evaluation.bestValue }]">
+				<i v-if="evaluation.currentValue <= evaluation.bestValue" class="fa fa-check" aria-hidden="true"></i> 
+				<i v-else class="fa fa-times fa-lg" aria-hidden="true"></i>
+				{{ evaluation.name }} {{ evaluation.currentValue }}
+			</div>
+		</div>
 	</div>
 </template>
 
@@ -85,7 +92,34 @@
 				cells: [],
 
 				valueChart: {},
-				ageChart: {}
+				ageChart: {},
+
+				evaluations: [
+					{
+						name: 'Количество лекций после утренних часов:',
+						currentValue: 0,
+						bestValue: 0
+					}, {
+						name: 'Количество избыточных мест в аудиториях:',
+						currentValue: 0,
+						bestValue: 300
+					}, {
+						name: 'Количество превышений дневной нагрузки для всех преподавателей:',
+						currentValue: 0,
+						bestValue: 0
+					}, {
+						name: 'Количество "окон" в расписании по всем преподавателям:',
+						currentValue: 0,
+						bestValue: 0
+					}, {
+						name: 'Количество превышений дневной нагрузки для всех учебных групп:',
+						currentValue: 0,
+						bestValue: 0
+					}, {
+						name: 'Количество "окон" в расписании по всем учебным группам:',
+						currentValue: 0,
+						bestValue: 0
+					}]
 			}
 		},
 		computed: {
@@ -184,6 +218,10 @@
 					this.ageChart.xAxis[0].update({
 						max: agePointCount + 20
 					});
+				}
+
+				for (var i = 0; i < data.evaluations.length; i++) {
+					this.evaluations[i].currentValue = data.evaluations[i];
 				}
 			});
 
@@ -383,4 +421,11 @@
 			color: black;
 			font-size: 14px;
 		}
+
+	.evaluation-info {
+		font-size: 16px;
+		font-weight: 600;
+		line-height: 28px;
+		margin-left: 20px;
+	}
 </style>

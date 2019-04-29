@@ -20,5 +20,10 @@ namespace DataLayer.Models.Response
 		/// Средний возраст решений (расписаний) в пуле.
 		/// </summary>
 		public double AverageAge { get; set; }
+
+		/// <summary>
+		/// Оценки расписания.
+		/// </summary>
+		public List<int> Evaluations { get; set; } = new List<int>();
 	}
 }
