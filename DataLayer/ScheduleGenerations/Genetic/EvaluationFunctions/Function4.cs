@@ -13,7 +13,7 @@ namespace DataLayer.ScheduleGenerations.Genetic.EvaluationFunctions
 	/// </summary>
 	public static class Function4
 	{
-		static int K { get; } = 2;
+		static int K { get; } = 3;
 
 		public static double Value(Schedule schedule)
 		{

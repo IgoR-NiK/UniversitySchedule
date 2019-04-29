@@ -8,7 +8,7 @@ namespace DataLayer.ScheduleGenerations.Genetic.EvaluationFunctions
 {
 	public static class EvaluationCalculation
 	{
-		static double[] Weights { get; } = new double[] { 3, 1, 1000, 5, 10, 5, 10 };
+		static double[] Weights { get; } = new double[] { 8, 1, 1000, 3, 10, 5, 15 };
 
 		public static double Calculate(Schedule schedule)
 		{
