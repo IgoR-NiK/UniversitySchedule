@@ -18,22 +18,56 @@ namespace Repository.MsSqlRepository
 
 		public Task<Group> AddAsync(Group item)
 		{
-			throw new NotImplementedException();
+			return Task.Run(() =>
+			{
+				using (var dbContext = GetDbContext())
+				{
+					dbContext.Groups.Add(item);
+					dbContext.SaveChanges();
+				}
+
+				return item;
+			});
 		}
 
 		public Task AddRangeAsync(IEnumerable<Group> items)
 		{
-			throw new NotImplementedException();
+			return Task.Run(() =>
+			{
+				using (var dbContext = GetDbContext())
+				{
+					dbContext.Groups.AddRange(items);
+					dbContext.SaveChanges();
+				}
+			});
 		}
 
 		public Task Clear()
 		{
-			throw new NotImplementedException();
+			return Task.Run(() =>
+			{
+				using (var dbContext = GetDbContext())
+				{
+					dbContext.Groups.RemoveRange(dbContext.Groups);
+					dbContext.SaveChanges();
+				}
+			});
 		}
 
 		public Task DeleteAsync(int id)
 		{
-			throw new NotImplementedException();
+			return Task.Run(() =>
+			{
+				using (var dbContext = GetDbContext())
+				{
+					var item = dbContext.Groups.Find(id);
+					if (item != null)
+					{
+						dbContext.Groups.Remove(item);
+						dbContext.SaveChanges();
+					}
+				}
+			});
 		}
 
 		public Task<Group> GetEntityAsync(int id)
@@ -53,7 +87,20 @@ namespace Repository.MsSqlRepository
 
 		public Task<List<Group>> GetEntityListAsync()
 		{
-			throw new NotImplementedException();
+			return Task.Run(() =>
+			{
+				var groups = new List<Group>();
+
+				using (var dbContext = GetDbContext())
+				{
+					groups = dbContext.Groups
+								.Include(x => x.Department)			
+								.OrderBy(f => f.Name)
+								.ToList();
+				}
+
+				return groups;
+			});
 		}
 
 		public Task<List<Group>> GetGroupsForFacultyAndCourseAsync(int facultyId, int courseNumber)
@@ -77,7 +124,16 @@ namespace Repository.MsSqlRepository
 
 		public Task<Group> UpdateAsync(Group item)
 		{
-			throw new NotImplementedException();
+			return Task.Run(() =>
+			{
+				using (var dbContext = GetDbContext())
+				{
+					dbContext.Groups.Update(item);
+					dbContext.SaveChanges();
+				}
+
+				return item;
+			});
 		}
 	}
 }

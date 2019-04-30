@@ -16,27 +16,71 @@ namespace Repository.MsSqlRepository
 
 		public Task<Classroom> AddAsync(Classroom item)
 		{
-			throw new NotImplementedException();
+			return Task.Run(() =>
+			{
+				using (var dbContext = GetDbContext())
+				{
+					dbContext.Classrooms.Add(item);
+					dbContext.SaveChanges();
+				}
+
+				return item;
+			});
 		}
 
 		public Task AddRangeAsync(IEnumerable<Classroom> items)
 		{
-			throw new NotImplementedException();
+			return Task.Run(() =>
+			{
+				using (var dbContext = GetDbContext())
+				{
+					dbContext.Classrooms.AddRange(items);
+					dbContext.SaveChanges();
+				}
+			});
 		}
 
 		public Task Clear()
 		{
-			throw new NotImplementedException();
+			return Task.Run(() =>
+			{
+				using (var dbContext = GetDbContext())
+				{
+					dbContext.Classrooms.RemoveRange(dbContext.Classrooms);
+					dbContext.SaveChanges();
+				}
+			});
 		}
 
 		public Task DeleteAsync(int id)
 		{
-			throw new NotImplementedException();
+			return Task.Run(() =>
+			{
+				using (var dbContext = GetDbContext())
+				{
+					var item = dbContext.Classrooms.Find(id);
+					if (item != null)
+					{
+						dbContext.Classrooms.Remove(item);
+						dbContext.SaveChanges();
+					}
+				}
+			});
 		}
 
 		public Task<Classroom> GetEntityAsync(int id)
 		{
-			throw new NotImplementedException();
+			return Task.Run(() =>
+			{
+				Classroom classroom;
+
+				using (var dbContext = GetDbContext())
+				{
+					classroom = dbContext.Classrooms.FirstOrDefault(x => x.Id == id);
+				}
+
+				return classroom;
+			});
 		}
 
 		public Task<List<Classroom>> GetEntityListAsync()
@@ -62,7 +106,16 @@ namespace Repository.MsSqlRepository
 
 		public Task<Classroom> UpdateAsync(Classroom item)
 		{
-			throw new NotImplementedException();
+			return Task.Run(() =>
+			{
+				using (var dbContext = GetDbContext())
+				{
+					dbContext.Classrooms.Update(item);
+					dbContext.SaveChanges();
+				}
+
+				return item;
+			});
 		}
 	}
 }
