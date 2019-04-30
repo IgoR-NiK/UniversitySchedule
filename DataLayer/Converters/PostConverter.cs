@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 
 using DataLayer.Models;
+using DataLayer.Models.Response;
 using DbPost = Repository.Entities.Post;
 
 namespace DataLayer.Converters
@@ -30,6 +31,17 @@ namespace DataLayer.Converters
 				Id = post.Id,
 				Name = post.Name,
 				Description = post.Description
+			};
+		}
+
+		public static PostResponse ConvertTo(DbPost dbPost)
+		{
+			if (dbPost == null) return null;
+
+			return new PostResponse()
+			{
+				Name = dbPost.Name,
+				Description = dbPost.Description
 			};
 		}
 	}

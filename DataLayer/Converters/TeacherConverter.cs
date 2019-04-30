@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 
 using DataLayer.Models;
+using DataLayer.Models.Response;
 using DbTeacher = Repository.Entities.Teacher;
 
 namespace DataLayer.Converters
@@ -50,6 +51,19 @@ namespace DataLayer.Converters
 
 				DepartmentId = teacher.DepartmentId,
 				PostId = teacher.PostId
+			};
+		}
+
+		public static TeacherResponse ConvertTo(DbTeacher dbTeacher)
+		{
+			if (dbTeacher == null) return null;
+
+			return new TeacherResponse()
+			{
+				FullName = $"{dbTeacher.SecondName} {dbTeacher.FirstName.Substring(0, 1)}. {dbTeacher.MiddleName.Substring(0, 1)}.",
+				DepartmentName = dbTeacher.Department.Name,
+				PostName = dbTeacher.Post.Name,
+				Birthday = $"{dbTeacher.Birthday:D}"
 			};
 		}
 	}

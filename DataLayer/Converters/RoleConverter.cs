@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using DataLayer.Models;
+using DataLayer.Models.Response;
 using DbRole = Repository.Entities.Role;
 
 namespace DataLayer.Converters
@@ -31,6 +32,17 @@ namespace DataLayer.Converters
 				Id = role.Id,
 				Name = role.Name,
 				Description = role.Description
+			};
+		}
+
+		public static RoleResponse ConvertTo(DbRole dbRole)
+		{
+			if (dbRole == null) return null;
+
+			return new RoleResponse()
+			{
+				Name = dbRole.Name,
+				Description = dbRole.Description
 			};
 		}
 	}

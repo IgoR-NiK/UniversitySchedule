@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using DataLayer.Models;
+using DataLayer.Models.Response;
 using DbUser = Repository.Entities.User;
 
 namespace DataLayer.Converters
@@ -45,6 +46,18 @@ namespace DataLayer.Converters
 				IsLocked = user.IsLocked,
 				Gender = user.Gender,
 				RoleId = user.RoleId
+			};
+		}
+
+		public static UserResponse ConvertTo(DbUser dbUser)
+		{
+			if (dbUser == null) return null;
+
+			return new UserResponse()
+			{
+				Login = dbUser.Login,
+				FullName = $"{dbUser.SecondName} {dbUser.FirstName.Substring(0, 1)}. {dbUser.MiddleName.Substring(0, 1)}.",
+				RoleName = dbUser.Role.Description
 			};
 		}
 	}

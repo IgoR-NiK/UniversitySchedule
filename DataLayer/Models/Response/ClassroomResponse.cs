@@ -10,5 +10,6 @@ namespace DataLayer.Models.Response
 		public string Name { get; set; }
 		public int Capacity { get; set; }
 		public string ClassroomTypeName { get; set; }
+		public string BuildingName { get; set; }
 	}
 }

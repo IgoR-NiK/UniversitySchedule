@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 
 using DataLayer.Models;
+using DataLayer.Models.Response;
 using DbDepartment = Repository.Entities.Department;
 
 namespace DataLayer.Converters
@@ -32,6 +33,17 @@ namespace DataLayer.Converters
 				Id = department.Id,
 				Name = department.Name,
 				FacultyId = department.FacultyId
+			};
+		}
+
+		public static DepartmentResponse ConvertTo(DbDepartment dbDepartment)
+		{
+			if (dbDepartment == null) return null;
+
+			return new DepartmentResponse()
+			{	
+				Name = dbDepartment.Name,
+				FacultyName = dbDepartment.Faculty.Name
 			};
 		}
 	}

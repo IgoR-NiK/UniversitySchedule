@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 
 using DataLayer.Models;
+using DataLayer.Models.Response;
 using DbClassroom = Repository.Entities.Classroom;
 
 namespace DataLayer.Converters
@@ -45,6 +46,19 @@ namespace DataLayer.Converters
 				Capacity = classroom.Capacity,
 				ClassroomTypeId = classroom.ClassroomTypeId,
 				BuildingId = classroom.BuildingId				
+			};
+		}
+
+		public static ClassroomResponse ConvertTo(DbClassroom dbClassroom)
+		{
+			if (dbClassroom == null) return null;
+
+			return new ClassroomResponse()
+			{
+				Name = dbClassroom.Name,
+				Capacity = dbClassroom.Capacity,
+				ClassroomTypeName = dbClassroom.ClassroomType.Name,
+				BuildingName = dbClassroom.Building.ShortName
 			};
 		}
 	}

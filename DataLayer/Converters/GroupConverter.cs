@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using DataLayer.Models;
+using DataLayer.Models.Response;
 using DbGroup = Repository.Entities.Group;
 
 namespace DataLayer.Converters
@@ -44,6 +45,19 @@ namespace DataLayer.Converters
 				StudentsCount = group.StudentsCount,
 				DepartmentId = group.DepartmentId,
 				ParentGroupId = group.ParentGroupId
+			};
+		}
+
+		public static GroupResponse ConvertTo(DbGroup dbGroup)
+		{
+			if (dbGroup == null) return null;
+
+			return new GroupResponse()
+			{
+				Name = dbGroup.Name,
+				StudentCount = dbGroup.StudentsCount,
+				NumberCourse = dbGroup.CoursesNumber,
+				DepartmentName = dbGroup.Department.Name
 			};
 		}
 	}
