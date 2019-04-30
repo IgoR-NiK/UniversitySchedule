@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using DataLayer.Models;
+using DataLayer.Models.Response;
 using DbFaculty = Repository.Entities.Faculty;
 
 namespace DataLayer.Converters
@@ -31,6 +32,17 @@ namespace DataLayer.Converters
 				Id = faculty.Id,
 				Name = faculty.Name,
 				ShortName = faculty.ShortName
+			};
+		}
+
+		public static FacultyResponse ConvertTo(DbFaculty dbFaculty)
+		{
+			if (dbFaculty == null) return null;
+
+			return new FacultyResponse()
+			{
+				Name = dbFaculty.Name,
+				ShortName = dbFaculty.ShortName
 			};
 		}
 	}

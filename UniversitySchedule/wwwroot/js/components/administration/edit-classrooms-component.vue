@@ -84,7 +84,7 @@
 				name: 'Сетка расписания',
 
 				buildingWidth: 30,
-				classroomWidth: 125,
+				classroomWidth: 150,
 				timeslotWidth: 200,
 
 				weeks: [],
@@ -358,11 +358,11 @@
 	}
 
 	.lecture {
-		background-color: #e4fade;
+		background-color: #E5FFD5;
 	}
 
 	.practice {
-		background-color: #e8f0f7;
+		background-color: #D5F6FF;
 	}
 
 	.laboratoryWork {

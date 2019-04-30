@@ -17,22 +17,56 @@ namespace Repository.MsSqlRepository
 
 		public Task<Faculty> AddAsync(Faculty item)
 		{
-			throw new NotImplementedException();
+			return Task.Run(() =>
+			{
+				using (var dbContext = GetDbContext())
+				{
+					dbContext.Faculties.Add(item);
+					dbContext.SaveChanges();
+				}
+
+				return item;
+			});
 		}
 
 		public Task AddRangeAsync(IEnumerable<Faculty> items)
 		{
-			throw new NotImplementedException();
+			return Task.Run(() =>
+			{
+				using (var dbContext = GetDbContext())
+				{
+					dbContext.Faculties.AddRange(items);
+					dbContext.SaveChanges();
+				}
+			});
 		}
 
 		public Task Clear()
 		{
-			throw new NotImplementedException();
+			return Task.Run(() =>
+			{
+				using (var dbContext = GetDbContext())
+				{
+					dbContext.Faculties.RemoveRange(dbContext.Faculties);
+					dbContext.SaveChanges();
+				}
+			});
 		}
 
 		public Task DeleteAsync(int id)
 		{
-			throw new NotImplementedException();
+			return Task.Run(() =>
+			{
+				using (var dbContext = GetDbContext())
+				{
+					var item = dbContext.Faculties.Find(id);
+					if (item != null)
+					{
+						dbContext.Faculties.Remove(item);
+						dbContext.SaveChanges();
+					}
+				}
+			});
 		}
 
 		public Task<List<int>> GetCoursesForFacultyAsync(int facultyId)
@@ -89,7 +123,16 @@ namespace Repository.MsSqlRepository
 
 		public Task<Faculty> UpdateAsync(Faculty item)
 		{
-			throw new NotImplementedException();
+			return Task.Run(() =>
+			{
+				using (var dbContext = GetDbContext())
+				{
+					dbContext.Faculties.Update(item);
+					dbContext.SaveChanges();
+				}
+
+				return item;
+			});
 		}
 	}
 }

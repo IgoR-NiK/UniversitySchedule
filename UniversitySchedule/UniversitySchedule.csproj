@@ -14,7 +14,6 @@
 
 
   <ItemGroup>
-    <Folder Include="wwwroot\images\common\" />
     <Folder Include="wwwroot\lib\" />
   </ItemGroup>
 
