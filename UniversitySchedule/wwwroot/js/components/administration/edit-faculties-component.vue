@@ -21,7 +21,7 @@
 					titles: [
 						{
 							name: 'Наименование',
-							width: '60%'
+							width: '66%'
 						}, {
 							name: 'Краткое наименование',
 							width: '30%'
@@ -32,7 +32,7 @@
 		},
 		components: {
 			'h1-title': httpVueLoader('/js/components/common/h1-title.vue'),
-			'table-component': httpVueLoader('/js/components/administration/table-component.vue'),
+			'table-component': httpVueLoader('/js/components/administration/table-component.vue')
 		},
 		created: function () {
 			axios
