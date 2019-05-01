@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using DataLayer.Models;
 using DataLayer.Converters;
 using Repository.Interfaces;
+using DataLayer.Models.Response;
 
 namespace UniversitySchedule.Controllers
 {
@@ -39,6 +40,40 @@ namespace UniversitySchedule.Controllers
 				return NotFound();
 
 			return new OkObjectResult(GroupConverter.Convert(group));
+		}
+
+		[HttpGet]
+		[Route("GetAdminGroups")]
+		public async Task<IEnumerable<GroupResponse>> GetAdminGroups()
+		{
+			var groups = await GroupRepository.GetEntityListAsync();
+			return groups.Select(x => GroupConverter.ConvertTo(x));
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> Post([FromBody] Group group)
+		{
+			if (group == null)
+				return BadRequest();
+
+			await GroupRepository.AddAsync(GroupConverter.Convert(group));
+			return new OkObjectResult(group);
+		}
+
+		[HttpPut]
+		public async Task<IActionResult> Put([FromBody] Group group)
+		{
+			if (group == null)
+				return BadRequest();
+
+			await GroupRepository.UpdateAsync(GroupConverter.Convert(group));
+			return new OkObjectResult(group);
+		}
+
+		[HttpDelete]
+		public async Task Delete(int id)
+		{
+			await GroupRepository.DeleteAsync(id);
 		}
 	}
 }
