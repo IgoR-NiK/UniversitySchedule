@@ -29,6 +29,30 @@
 					{
 						name: 'Редактирование кафедр',
 						path: '/administration/departments'
+					},
+					{
+						name: 'Редактирование пользователей',
+						path: '/administration/users'
+					},
+					{
+						name: 'Редактирование ролей',
+						path: '/administration/roles'
+					},
+					{
+						name: 'Редактирование аудиторий',
+						path: '/administration/classrooms-admin'
+					},
+					{
+						name: 'Редактирование учебных групп',
+						path: '/administration/groups'
+					},
+					{
+						name: 'Редактирование преподавателей',
+						path: '/administration/teachers'
+					},
+					{
+						name: 'Редактирование должностей',
+						path: '/administration/posts'
 					}
 				]
 			}

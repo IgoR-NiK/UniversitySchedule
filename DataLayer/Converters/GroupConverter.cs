@@ -57,7 +57,7 @@ namespace DataLayer.Converters
 				Name = dbGroup.Name,
 				StudentCount = dbGroup.StudentsCount,
 				NumberCourse = dbGroup.CoursesNumber,
-				DepartmentName = dbGroup.Department.Name
+				DepartmentName = dbGroup.Department?.Name
 			};
 		}
 	}

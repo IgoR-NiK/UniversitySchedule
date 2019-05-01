@@ -107,6 +107,30 @@
 					component: httpVueLoader('/js/components/administration/edit-departments-component.vue'),
 					beforeEnter: ifAuthenticated
 				}, {
+					path: '/administration/roles',
+					component: httpVueLoader('/js/components/administration/edit-roles-component.vue'),
+					beforeEnter: ifAuthenticated
+				}, {
+					path: '/administration/users',
+					component: httpVueLoader('/js/components/administration/edit-users-component.vue'),
+					beforeEnter: ifAuthenticated
+				}, {
+					path: '/administration/classrooms-admin',
+					component: httpVueLoader('/js/components/administration/edit-classrooms-admin-component.vue'),
+					beforeEnter: ifAuthenticated
+				}, {
+					path: '/administration/groups',
+					component: httpVueLoader('/js/components/administration/edit-groups-component.vue'),
+					beforeEnter: ifAuthenticated
+				}, {
+					path: '/administration/teachers',
+					component: httpVueLoader('/js/components/administration/edit-teachers-component.vue'),
+					beforeEnter: ifAuthenticated
+				}, {
+					path: '/administration/posts',
+					component: httpVueLoader('/js/components/administration/edit-posts-component.vue'),
+					beforeEnter: ifAuthenticated
+				}, {
 					path: '/administration/login',
 					component: httpVueLoader('/js/components/login/login-component.vue'),
 					beforeEnter: ifNotAuthenticated
