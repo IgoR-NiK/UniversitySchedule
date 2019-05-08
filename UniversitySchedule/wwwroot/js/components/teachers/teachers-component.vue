@@ -78,7 +78,7 @@
 		},
 		created: function() {
 			axios
-				.get(`/api/schedules/GetScheduleForTeacher?teacherId=4`)
+				.get(`/api/schedules/GetScheduleForTeacher?teacherId=5`)
 				.then(response => this.weeks = response.data);
 		}
 	};
